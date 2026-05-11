@@ -655,7 +655,7 @@
         >
           APRI MAPPA
         </a>
-  <button class="calendar-btn" onclick="addCalendar('Cerimonia Religiosa','Basilica di Santa Maria della Sanità, Piazza Sanità 33, Napoli','2026-10-03T10:30:00','2026-10-03T11:30:00')">Aggiungi al calendario</button>
+  <button class="calendar-btn" onclick="addCalendar('Cerimonia Religiosa','Basilica di Santa Maria della Sanità, Piazza Sanità 33, Napoli','2026-10-03T10:30:00','2026-10-03T11:30:00','Cerimonia religiosa di Ciro e Amalia. Vi aspettiamo per celebrare insieme. Indirizzo: Piazza Sanità 33, Napoli.')">Aggiungi al calendario</button>
 
       </div>
 
@@ -682,7 +682,7 @@
         <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Il+San+Cristoforo+Ercolano" target="_blank" rel="noopener">
           APRI MAPPA
         </a>
-  <button class="calendar-btn" onclick="addCalendar('Ricevimento','Il San Cristoforo, Via Sacerdote Cozzolino Benedetto 29, Ercolano','2026-10-03T13:30:00','2026-10-03T17:00:00')">Aggiungi al calendario</button>
+  <button class="calendar-btn" onclick="addCalendar('Ricevimento','Il San Cristoforo, Via Sacerdote Cozzolino Benedetto 29, Ercolano','2026-10-03T13:30:00','2026-10-03T17:00:00','Ricevimento di Ciro e Amalia presso Il San Cristoforo. Ore 13:30. Indirizzo: Via Sacerdote Cozzolino Benedetto 29, Ercolano.')">Aggiungi al calendario</button>
 
       </div>
 
@@ -807,7 +807,7 @@
     })();
 
     // Add to calendar: generates .ics and opens Google Calendar quick add
-    function toICS(dtStart, dtEnd, title, location, description=''){
+  function toICS(dtStart, dtEnd, title, location, description=''){
       function formatDate(d){
         return d.toISOString().replace(/[-:]|\.\d{3}/g,'');
       }
@@ -821,7 +821,7 @@
         `DTEND:${formatDate(new Date(dtEnd))}`,
         `SUMMARY:${title}`,
         `LOCATION:${location}`,
-        `DESCRIPTION:${description}`,
+  `DESCRIPTION:${description}`,
         'END:VEVENT',
         'END:VCALENDAR'
       ];
@@ -837,18 +837,19 @@
       setTimeout(()=>URL.revokeObjectURL(url),10000);
     }
 
-    function openGoogleCalendar(title, location, dtStart, dtEnd){
+    function openGoogleCalendar(title, location, dtStart, dtEnd, description=''){
       const start = encodeURIComponent(dtStart.replace(/-|:|\.\d{3}/g,''));
       const end = encodeURIComponent(dtEnd.replace(/-|:|\.\d{3}/g,''));
-      const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&location=${encodeURIComponent(location)}`;
+      const details = encodeURIComponent(description);
+      const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&details=${details}&location=${encodeURIComponent(location)}`;
       window.open(url,'_blank');
     }
 
-    function addCalendar(title, location, dtStart, dtEnd){
-      // generate ics for native calendar
-      toICS(dtStart, dtEnd, title, location);
-      // also open Google Calendar for quick add
-      openGoogleCalendar(title, location, dtStart, dtEnd);
+    function addCalendar(title, location, dtStart, dtEnd, description=''){
+      // generate ics for native calendar (includes description)
+      toICS(dtStart, dtEnd, title, location, description);
+      // also open Google Calendar for quick add (prefill includes details)
+      openGoogleCalendar(title, location, dtStart, dtEnd, description);
     }
 
   </script>

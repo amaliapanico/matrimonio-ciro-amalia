@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ciro & Amalia — Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    :root {
+      --cream: #f7f1ea;
+      --paper: #fffaf4;
+      --gold: #c8a96b;
+      --ink: #2d2430;
+      --rose: #d9bbb3;
+      --shadow: rgba(0,0,0,0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.4), transparent 40%),
+        linear-gradient(180deg, #f8f3ee 0%, #f5ede5 100%);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 120px 20px;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    /* HERO */
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.2)),
+        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop') center/cover;
+      filter: blur(0px);
+      transform: scale(1.05);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      color: white;
+      animation: fadeUp 1.4s ease;
+    }
+
+    .hero-sub {
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      opacity: 0.85;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: 4px;
+    }
+
+    .hero .amp {
+      font-size: 3rem;
+      margin: 10px 0;
+      opacity: 0.9;
+    }
+
+    .hero-date {
+      margin-top: 30px;
+      letter-spacing: 10px;
+      font-size: 1rem;
+    }
+
+    /* COUNTDOWN */
+    .countdown {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      color: white;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      z-index: 2;
+      font-weight: 600;
+    }
+
+    .countdown .box {
+      background: rgba(0,0,0,0.25);
+      padding: 8px 12px;
+      border-radius: 10px;
+      min-width: 60px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .countdown .num {
+      font-size: 1.2rem;
+      display: block;
+    }
+
+    .scroll-text {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      letter-spacing: 4px;
+      font-size: 0.8rem;
+      animation: bounce 2s infinite;
+      z-index: 3;
+    }
+
+    /* NAV (tabs) */
+
+    .nav{
+      position:fixed;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:10px;
+      background:rgba(255,255,255,0.8);
+      backdrop-filter:blur(10px);
+      padding:10px;
+      border-radius:999px;
+      box-shadow:0 15px 40px rgba(0,0,0,0.12);
+      z-index:1000;
+    }
+
+    .nav a{
+      text-decoration:none;
+      color:var(--ink);
+      font-size:0.85rem;
+      padding:10px 14px;
+      border-radius:999px;
+      transition:0.3s;
+    }
+
+    .nav a:hover{
+      background:rgba(198,167,105,0.2);
+    }
+
+    /* ENVELOPE */
+
+    .envelope-section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .invite-text {
+      margin-bottom: 40px;
+    }
+
+    .invite-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .invite-text p {
+      letter-spacing: 3px;
+      color: #7a6d6d;
+    }
+
+    .envelope {
+      width: 340px;
+      height: 230px;
+      position: relative;
+      cursor: pointer;
+  perspective: 1500px;
+  transform-style: preserve-3d; /* allow children to be positioned in 3D */
+      transition: transform 0.5s ease;
+    }
+
+    .envelope:hover {
+      transform: translateY(-8px);
+    }
+
+    .envelope-base {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #fdf8f2 0%, #f3e6d8 100%);
+      border-radius: 8px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #f6ebe0 0%, #ead5c1 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 55%);
+      transform-origin: top;
+      transition: transform 1.2s cubic-bezier(.22,1,.36,1);
+  backface-visibility: hidden; /* hide backface when rotated */
+      z-index: 4;
+    }
+
+    .wax {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+  transform: translate(-50%, -50%) translateZ(40px); /* pull wax forward */
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #d8a2af, #9d425b);
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 2px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: all 1.2s cubic-bezier(.22,1,.36,1);
+  will-change: transform, opacity;
+    }
+
+    .wax:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    /* LOGO sizes */
+    .logo-wax {
+      width: 56px;
+      height: auto;
+      display: block;
+      background: radial-gradient(circle at 30% 30%, #d8a2af, #9d425b);
+      padding: 10px;
+      border-radius: 50%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+      transform: translateZ(0);
+    }
+
+    .letter {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%) translateY(40px);
+      width: 90%;
+      background: linear-gradient(180deg, #fffdf9, #f8f0e7);
+      padding: 50px 30px;
+      border-radius: 4px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      transition: all 1.2s cubic-bezier(.22,1,.36,1);
+      opacity: 0;
+      z-index: 2;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .letter h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .letter p {
+      color: #6f6666;
+      margin-top: 15px;
+      line-height: 1.9;
+    }
+
+    .open .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .open .letter {
+      transform: translateX(-50%) translateY(-220px);
+      opacity: 1;
+    }
+
+    .open .wax {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+      transition-delay: 0.6s; /* wait until flap rotates a bit */
+    }
+
+    /* DETAILS */
+
+    .details {
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 400;
+      margin-bottom: 80px;
+      text-align: center;
+    }
+
+    .event-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      padding: 60px 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      margin-bottom: 40px;
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: transform 0.4s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .event-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: auto;
+      margin-bottom: 30px;
+      background: linear-gradient(180deg, #fffdf9, #efe2d4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .event-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .event-time {
+      letter-spacing: 4px;
+      color: var(--gold);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .event-place {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #5b4d4d;
+    }
+
+    .maps-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(90deg, #c7a36b, #b89052);
+      letter-spacing: 2px;
+      font-size: 0.8rem;
+      transition: all 0.4s ease;
+    }
+
+    .maps-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .calendar-btn {
+      display: inline-block;
+      margin-top: 12px;
+      margin-left: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,#ffffff,#f3efe8);
+      color: var(--ink);
+      border: 1px solid rgba(0,0,0,0.06);
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .calendar-btn:hover{ transform: translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,0.06);} 
+
+    /* TABLE SEARCH */
+
+    .tables {
+      text-align: center;
+    }
+
+    .search-box {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255,255,255,0.75);
+      padding: 60px 40px;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .search-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+
+    .search-box p {
+      color: #6b6161;
+      margin-bottom: 35px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.7);
+      font-size: 1rem;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    .search-btn {
+      border: none;
+      padding: 18px 40px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #c7a36b, #b89052);
+      color: white;
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .result {
+      margin-top: 35px;
+      font-size: 1.2rem;
+      color: #4b4040;
+      min-height: 40px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6f6666;
+      letter-spacing: 2px;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%,100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(-10px);
+      }
+    }
+
+    @media(max-width:768px) {
+
+      section {
+        padding: 90px 20px;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+      }
+
+      .section-title {
+        font-size: 3rem;
+      }
+
+      .event-card,
+      .search-box {
+        padding: 40px 25px;
+      }
+
+      .open .letter {
+        transform: translateX(-50%) translateY(-170px);
+      }
+
+      .letter h3 {
+        font-size: 2rem;
+      }
+
+      .envelope {
+        width: 300px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="hero-sub">
+        Hai ricevuto un invito
+      </div>
+
+  <h1>CIRO</h1>
+      <div class="amp">&</div>
+      <h1>AMALIA</h1>
+
+      <div class="hero-date">
+        03 · 10 · 2026
+      </div>
+
+      <div id="countdown" class="countdown">
+        <div class="box"><span class="num" id="cd-days">--</span><span>giorni</span></div>
+        <div class="box"><span class="num" id="cd-hours">--</span><span>ore</span></div>
+        <div class="box"><span class="num" id="cd-mins">--</span><span>min</span></div>
+        <div class="box"><span class="num" id="cd-secs">--</span><span>sec</span></div>
+      </div>
+
+    </div>
+
+    <div class="scroll-text">
+      SCORRI
+    </div>
+
+  </section>
+
+  <div class="nav">
+    <a href="#chiesa">Chiesa</a>
+    <a href="#ricevimento">Ricevimento</a>
+    <a href="#tavolo">Tavolo</a>
+  </div>
+
+
+  <section class="envelope-section">
+
+    <div class="invite-text">
+      <h2>Apri l'invito</h2>
+    </div>
+
+    <div class="envelope" id="envelope">
+
+      <div class="envelope-base"></div>
+
+      <div class="envelope-flap"></div>
+
+      <div class="wax">
+        <img src="assets/logo-small.png" alt="AC" class="logo-wax">
+      </div>
+
+      <div class="letter">
+
+        <h3>
+          Ciro & Amalia
+        </h3>
+
+        <p>
+          annunciano il loro matrimonio
+        </p>
+
+        <p>
+          03 · 10 · 2026<br>
+          Napoli
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="details">
+
+    <div class="container">
+
+      <h2 class="section-title">
+        Il Matrimonio
+      </h2>
+
+  <div id="chiesa" class="event-card">
+
+        <div class="event-icon">
+          ⛪
+        </div>
+
+        <h3>
+          Cerimonia Religiosa
+        </h3>
+
+        <div class="event-time">
+          ore 10:30
+        </div>
+
+        <div class="event-place">
+          Basilica di Santa Maria della Sanità<br>
+          Piazza Sanità, 33 — Napoli
+        </div>
+
+        <a
+          class="maps-btn"
+          href="https://www.google.com/maps/search/?api=1&query=Basilica+di+Santa+Maria+della+Sanit%C3%A0+Napoli"
+          target="_blank"
+          rel="noopener"
+        >
+          APRI MAPPA
+        </a>
+  <button class="calendar-btn" onclick="addCalendar('Cerimonia Religiosa','Basilica di Santa Maria della Sanità, Piazza Sanità 33, Napoli','2026-10-03T10:30:00','2026-10-03T11:30:00')">Aggiungi al calendario</button>
+
+      </div>
+
+
+  <div id="ricevimento" class="event-card">
+
+        <div class="event-icon">
+          🍽️
+        </div>
+
+        <h3>
+          Ricevimento
+        </h3>
+
+          <div class="event-time">
+            ore 13:30
+          </div>
+
+        <div class="event-place">
+          Il San Cristoforo<br>
+          Via Sacerdote Cozzolino Benedetto, 29 — Ercolano
+        </div>
+
+        <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Il+San+Cristoforo+Ercolano" target="_blank" rel="noopener">
+          APRI MAPPA
+        </a>
+  <button class="calendar-btn" onclick="addCalendar('Ricevimento','Il San Cristoforo, Via Sacerdote Cozzolino Benedetto 29, Ercolano','2026-10-03T13:30:00','2026-10-03T17:00:00')">Aggiungi al calendario</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section id="tavolo" class="tables">
+
+    <div class="container">
+
+      <div class="search-box">
+
+        <h3>
+          Trova il tuo tavolo
+        </h3>
+
+        <p>
+          Inserisci nome e cognome
+        </p>
+
+        <input
+          type="text"
+          id="guestName"
+          class="search-input"
+          placeholder="Es. Mario Rossi"
+        >
+
+        <button class="search-btn" onclick="findTable()">
+          CERCA
+        </button>
+
+        <div class="result" id="result"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+    Con amore — Ciro & Amalia
+  </footer>
+
+
+  <script>
+
+    const envelope = document.getElementById('envelope');
+
+    envelope.addEventListener('click', () => {
+      envelope.classList.toggle('open');
+    });
+
+
+    const invitati = {
+      "mario rossi": "Tavolo Limoni 🍋",
+      "anna esposito": "Tavolo Rose 🌹",
+      "giuseppe ferrara": "Tavolo Orchidee 🌸",
+      "lucia romano": "Tavolo Ulivi 🌿"
+    };
+
+
+    function findTable() {
+
+      const input = document
+        .getElementById('guestName')
+        .value
+        .trim()
+        .toLowerCase();
+
+      const result = document.getElementById('result');
+
+      if(invitati[input]) {
+
+        result.innerHTML = `
+          Benvenuto/a <strong>${input}</strong><br><br>
+          Il tuo tavolo è:<br>
+          <strong>${invitati[input]}</strong>
+        `;
+
+      } else {
+
+        result.innerHTML = `
+          Invitato non trovato ❤️
+        `;
+      }
+    }
+
+    // Countdown
+    (function(){
+      const target = new Date('2026-10-03T00:00:00');
+      const dEl = document.getElementById('cd-days');
+      const hEl = document.getElementById('cd-hours');
+      const mEl = document.getElementById('cd-mins');
+      const sEl = document.getElementById('cd-secs');
+
+      function update(){
+        const now = new Date();
+        let diff = Math.max(0, target - now);
+        const days = Math.floor(diff / (1000*60*60*24));
+        diff -= days * (1000*60*60*24);
+        const hours = Math.floor(diff / (1000*60*60));
+        diff -= hours * (1000*60*60);
+        const mins = Math.floor(diff / (1000*60));
+        diff -= mins * (1000*60);
+        const secs = Math.floor(diff / 1000);
+
+        dEl.textContent = String(days).padStart(2,'0');
+        hEl.textContent = String(hours).padStart(2,'0');
+        mEl.textContent = String(mins).padStart(2,'0');
+        sEl.textContent = String(secs).padStart(2,'0');
+
+        if(days===0 && hours===0 && mins===0 && secs===0){
+          clearInterval(timer);
+        }
+      }
+
+      update();
+      const timer = setInterval(update,1000);
+    })();
+
+    // Add to calendar: generates .ics and opens Google Calendar quick add
+    function toICS(dtStart, dtEnd, title, location, description=''){
+      function formatDate(d){
+        return d.toISOString().replace(/[-:]|\.\d{3}/g,'');
+      }
+
+      const icsLines = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//CiroAmalia//EN',
+        'BEGIN:VEVENT',
+        `DTSTART:${formatDate(new Date(dtStart))}`,
+        `DTEND:${formatDate(new Date(dtEnd))}`,
+        `SUMMARY:${title}`,
+        `LOCATION:${location}`,
+        `DESCRIPTION:${description}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ];
+
+      const blob = new Blob([icsLines.join('\r\n')], {type: 'text/calendar'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${title.replace(/\s+/g,'_')}.ics`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),10000);
+    }
+
+    function openGoogleCalendar(title, location, dtStart, dtEnd){
+      const start = encodeURIComponent(dtStart.replace(/-|:|\.\d{3}/g,''));
+      const end = encodeURIComponent(dtEnd.replace(/-|:|\.\d{3}/g,''));
+      const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start}/${end}&location=${encodeURIComponent(location)}`;
+      window.open(url,'_blank');
+    }
+
+    function addCalendar(title, location, dtStart, dtEnd){
+      // generate ics for native calendar
+      toICS(dtStart, dtEnd, title, location);
+      // also open Google Calendar for quick add
+      openGoogleCalendar(title, location, dtStart, dtEnd);
+    }
+
+  </script>
+
+</body>
+</html>

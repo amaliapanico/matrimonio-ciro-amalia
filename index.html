@@ -19,6 +19,7 @@
             --gold: #c8a96b;
             --ink: #2d2430;
             --rose: #d9bbb3;
+            --thread: #c96b6d;
             --shadow: rgba(0, 0, 0, 0.15);
         }
 
@@ -490,6 +491,268 @@
             min-height: 40px;
         }
 
+        /* =========================
+   STORY TIMELINE REFINED
+========================= */
+
+        .story-section {
+            position: relative;
+            padding: 100px 20px;
+            background: #faf6f1;
+            overflow: hidden;
+        }
+
+        .story-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            height: 1px;
+            width: 140px;
+            transform: translateY(-50%);
+        }
+
+        .story-item.left::before {
+            right: 50%;
+            background: linear-gradient(to left,
+                    rgba(201, 107, 109, .15),
+                    rgba(201, 107, 109, .55));
+        }
+
+        .story-item.right::before {
+            left: 50%;
+            background: linear-gradient(to right,
+                    rgba(201, 107, 109, .15),
+                    rgba(201, 107, 109, .55));
+        }
+
+        .story-container {
+            position: relative;
+            max-width: 680px;
+            margin: auto;
+        }
+
+        /* linea centrale */
+
+        .story-line {
+            position: absolute;
+            top: 100px;
+            bottom: 60px;
+            left: 50%;
+
+            width: 2px;
+
+            transform: translateX(-50%);
+
+            background:
+                linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(201, 107, 109, .25) 8%,
+                    rgba(201, 107, 109, .8) 20%,
+                    rgba(201, 107, 109, .8) 80%,
+                    rgba(201, 107, 109, .25) 92%,
+                    transparent 100%);
+
+            box-shadow:
+                0 0 18px rgba(201, 107, 109, .3);
+        }
+
+        /* heading */
+
+        .story-heading {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .story-heading span {
+            display: block;
+
+            letter-spacing: 5px;
+            font-size: .62rem;
+
+            color: var(--gold);
+
+            margin-bottom: 18px;
+        }
+
+        .story-heading h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.6rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        /* item */
+
+        .story-item {
+            position: relative;
+
+            display: flex;
+
+            margin-bottom: 48px;
+        }
+
+        .story-item.left {
+            justify-content: flex-start;
+        }
+
+        .story-item.right {
+            justify-content: flex-end;
+        }
+
+        /* dot */
+
+        .story-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: white;
+            border: 1px solid var(--gold);
+
+            transform: translate(-50%, -50%);
+
+            z-index: 3;
+
+            box-shadow:
+                0 0 0 5px rgba(255, 255, 255, .7),
+                0 0 18px rgba(201, 107, 109, .2);
+        }
+
+        /* card */
+
+        .story-card {
+            width: 240px;
+
+            background: rgba(255, 255, 255, .52);
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255, 255, 255, .5);
+
+            border-radius: 22px;
+
+            padding: 14px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, .05);
+
+            transition: .35s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-4px);
+        }
+
+        /* image */
+
+        .story-card img,
+        .story-placeholder {
+            width: 100%;
+            height: auto;
+
+            object-fit: contain;
+            background: #f8f0e7;
+
+            border-radius: 14px;
+
+            margin-bottom: 12px;
+        }
+
+        /* placeholder */
+
+        .story-placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                linear-gradient(135deg,
+                    rgba(255, 255, 255, .7),
+                    rgba(240, 228, 218, .9));
+
+            border: 1px dashed rgba(201, 107, 109, .35);
+
+            color: #a08c8c;
+
+            letter-spacing: 3px;
+            font-size: .58rem;
+        }
+
+        /* text */
+
+        .story-date {
+            font-size: .56rem;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            color: var(--gold);
+
+            margin-bottom: 8px;
+        }
+
+        .story-text {
+            font-family: 'Cormorant Garamond', serif;
+
+            font-size: 1.02rem;
+
+            line-height: 1.4;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            color: #5f5555;
+        }
+
+        /* mobile */
+
+        @media(max-width:768px) {
+
+            .story-container {
+                max-width: 100%;
+            }
+
+            .story-line {
+                left: 18px;
+            }
+
+            .story-dot {
+                left: 18px;
+            }
+
+            .story-item,
+            .story-item.left,
+            .story-item.right {
+                justify-content: flex-start;
+            }
+
+            .story-item::before {
+                left: 18px;
+                width: 26px;
+            }
+
+            .story-card {
+                margin-left: 36px;
+                width: 220px;
+            }
+
+            .story-card img,
+            .story-placeholder {
+                height: auto;
+            }
+
+            .story-item {
+                margin-bottom: 40px;
+            }
+        }
+
         footer {
             text-align: center;
             padding: 60px 20px;
@@ -538,6 +801,14 @@
             .event-card,
             .search-box {
                 padding: 40px 25px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item:not(:last-child) {
+                padding-bottom: 24px;
             }
 
             .open .letter {
@@ -598,6 +869,340 @@
         <a href="#tavolo">Tavolo</a>
     </div>
 
+    <section class="story-section">
+
+        <div class="story-container">
+
+            <div class="story-line"></div>
+
+            <div class="story-heading">
+                <span>LA NOSTRA STORIA</span>
+
+                <h2>
+                    Tutto ci ha portati qui
+                </h2>
+            </div>
+
+            <!-- 1 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto1_30luglio2017.jpg" alt="30 luglio 2017">
+
+                    <div class="story-date">
+                        14 LUGLIO 2017
+                    </div>
+
+                    <div class="story-text">
+                        Ci siamo conosciuti
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 2 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto2_sorrento.jpg" alt="Sorrento">
+
+                    <div class="story-date">
+                        13 LUGLIO 2018
+                    </div>
+
+                    <div class="story-text">
+                        Il nostro primo weekend insieme
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 3 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto3_parigi.jpg" alt="Parigi">
+
+                    <div class="story-date">
+                        3 DICEMBRE 2018
+                    </div>
+
+                    <div class="story-text">
+                        Parigi
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 4 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto4_barcellona.jpg" alt="Barcellona">
+
+                    <div class="story-date">
+                        4 APRILE 2019
+                    </div>
+
+                    <div class="story-text">
+                        Barcellona
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 5 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto5_laureaciro.jpg" alt="Laurea di Ciro">
+
+                    <div class="story-date">
+                        21 OTTOBRE 2020
+                    </div>
+
+                    <div class="story-text">
+                        La laurea di lui
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 6 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto6_laureaamalia.JPG" alt="Laurea di Amalia">
+
+                    <div class="story-date">
+                        21 SETTEMBRE 2021
+                    </div>
+
+                    <div class="story-text">
+                        La mia laurea
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 7 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/foto7_amsterdam.jpg" alt="Amsterdam">
+
+                    <div class="story-date">
+                        15 SETTEMBRE 2022
+                    </div>
+
+                    <div class="story-text">
+                        Amsterdam
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 8 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/budapest.jpg" alt="">
+
+                    <div class="story-date">
+                        24 FEBBRAIO 2023
+                    </div>
+
+                    <div class="story-text">
+                        Budapest
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 9 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/newyork.jpg" alt="">
+
+                    <div class="story-date">
+                        20 OTTOBRE 2023
+                    </div>
+
+                    <div class="story-text">
+                        New York
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 10 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/proposta.jpg" alt="">
+
+                    <div class="story-date">
+                        22 OTTOBRE 2023
+                    </div>
+
+                    <div class="story-text">
+                        La proposta di matrimonio
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 11 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/londra.jpg" alt="">
+
+                    <div class="story-date">
+                        4 LUGLIO 2024
+                    </div>
+
+                    <div class="story-text">
+                        Londra
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 12 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/sharm.jpg" alt="">
+
+                    <div class="story-date">
+                        25 DICEMBRE 2024
+                    </div>
+
+                    <div class="story-text">
+                        Sharm el Sheik
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 13 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/ibiza.jpg" alt="">
+
+                    <div class="story-date">
+                        7 AGOSTO 2025
+                    </div>
+
+                    <div class="story-text">
+                        Ibiza
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 14 -->
+            <article class="story-item right">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <div class="story-placeholder">
+                        FOTO IN ARRIVO
+                    </div>
+
+                    <div class="story-date">
+                        14 GIUGNO 2026
+                    </div>
+
+                    <div class="story-text">
+                        La nostra promessa
+                    </div>
+
+                </div>
+
+            </article>
+
+            <!-- 15 -->
+            <article class="story-item left">
+
+                <div class="story-dot"></div>
+
+                <div class="story-card">
+
+                    <img src="assets/story4.jpg" alt="">
+
+                    <div class="story-date">
+                        3 OTTOBRE 2026
+                    </div>
+
+                    <div class="story-text">
+                        Il giorno del nostro sì
+                    </div>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
 
     <section class="envelope-section">
 
@@ -737,7 +1342,6 @@
         </div>
 
     </section>
-
 
     <footer>
         Con amore — Ciro & Amalia

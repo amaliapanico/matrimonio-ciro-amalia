@@ -5,6 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ciro & Amalia — Wedding Invitation</title>
+    <meta name="description" content="Ciro & Amalia — 03 · 10 · 2026, Napoli. Apri il nostro invito di matrimonio.">
+    <meta name="theme-color" content="#f7f1ea">
+
+    <link rel="icon" type="image/png" href="assets/logo-small.png">
+    <link rel="apple-touch-icon" href="assets/logo-small.png">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Ciro & Amalia — Wedding Invitation">
+    <meta property="og:description" content="03 · 10 · 2026 — Napoli. Vi aspettiamo per celebrare insieme.">
+    <meta property="og:image" content="assets/logo-small.png">
+    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,16 +63,236 @@
             margin: auto;
         }
 
+        /* INTRO COVER (busta-soglia) */
+
+        .intro-cover {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background:
+                radial-gradient(ellipse at center, rgba(255, 250, 244, 0.96) 0%, rgba(240, 221, 216, 0.99) 100%);
+            overflow: hidden;
+            transition: opacity 1.6s ease, transform 1.6s ease, visibility 0s linear 1.6s;
+        }
+
+        .intro-cover.exit {
+            opacity: 0;
+            transform: scale(1.04);
+            visibility: hidden;
+        }
+
+        .intro-cover::before,
+        .intro-cover::after {
+            content: '';
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .intro-cover::before {
+            top: 8%;
+            left: 6%;
+            background: radial-gradient(circle, rgba(200, 169, 107, 0.55), transparent 70%);
+            animation: floatGlow 10s ease-in-out infinite;
+        }
+
+        .intro-cover::after {
+            bottom: 8%;
+            right: 6%;
+            background: radial-gradient(circle, rgba(217, 187, 179, 0.55), transparent 70%);
+            animation: floatGlow 13s ease-in-out infinite reverse;
+        }
+
+        .intro-side {
+            position: absolute;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            transform-origin: left center;
+            letter-spacing: 9px;
+            font-size: 0.6rem;
+            color: rgba(45, 36, 48, 0.5);
+            white-space: nowrap;
+            text-transform: uppercase;
+        }
+
+        .intro-side.right {
+            left: auto;
+            right: 28px;
+            transform: translateY(-50%) rotate(90deg);
+            transform-origin: right center;
+        }
+
+        .intro-eyebrow {
+            letter-spacing: 8px;
+            font-size: 0.68rem;
+            color: var(--gold);
+            margin-bottom: 14px;
+            text-transform: uppercase;
+        }
+
+        .intro-monogram {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 4.6vw, 3rem);
+            color: var(--ink);
+            font-weight: 400;
+            letter-spacing: 3px;
+            line-height: 1.1;
+        }
+
+        .intro-rule {
+            width: 56px;
+            height: 1px;
+            background: var(--gold);
+            margin: 22px auto 36px;
+            position: relative;
+        }
+
+        .intro-rule::before,
+        .intro-rule::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .intro-rule::before { left: -10px; }
+        .intro-rule::after { right: -10px; }
+
+        .intro-hint {
+            margin-top: 44px;
+            letter-spacing: 6px;
+            font-size: 0.62rem;
+            color: rgba(45, 36, 48, 0.55);
+            text-transform: uppercase;
+            animation: hintPulse 2.6s ease-in-out infinite;
+        }
+
+        /* big envelope */
+
+        .big-envelope {
+            width: clamp(280px, 56vw, 520px);
+            aspect-ratio: 1.55 / 1;
+            position: relative;
+            cursor: pointer;
+            perspective: 2000px;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 30px 60px rgba(45, 36, 48, 0.22));
+        }
+
+        .big-envelope:hover {
+            transform: translateY(-6px);
+        }
+
+        .big-base {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #fdf8f2 0%, #efe0cc 100%);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .big-base::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, transparent 55%);
+        }
+
+        .big-flap {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, #f6ebe0 0%, #e3c7a7 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 58%);
+            transform-origin: top center;
+            transition: transform 1.6s cubic-bezier(.22, 1, .36, 1);
+            backface-visibility: hidden;
+            z-index: 4;
+        }
+
+        .big-flap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            clip-path: polygon(0 0, 100% 0, 50% 58%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), transparent 60%);
+        }
+
+        .big-wax {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: clamp(96px, 19%, 140px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #f4ede0;
+            transform: translate(-50%, -50%) translateZ(40px);
+            box-shadow:
+                0 14px 36px rgba(120, 90, 40, 0.35),
+                inset 0 -6px 14px rgba(140, 100, 50, 0.22),
+                inset 0 2px 4px rgba(255, 255, 255, 0.7),
+                0 0 0 1px rgba(200, 169, 107, 0.6);
+            z-index: 5;
+            overflow: hidden;
+            transition: all 1.4s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .big-wax img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .big-envelope.opening .big-flap {
+            transform: rotateX(-180deg);
+            transition-duration: 1s;
+        }
+
+        .big-envelope.opening .big-wax {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5) translateZ(40px);
+            transition-duration: 0.7s;
+            transition-delay: 0.1s;
+        }
+
+        @keyframes floatGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(24px, -28px); }
+        }
+
+        @keyframes hintPulse {
+            0%, 100% { opacity: 0.4; transform: translateY(0); }
+            50% { opacity: 0.9; transform: translateY(4px); }
+        }
+
         /* HERO */
 
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
             overflow: hidden;
+            padding-bottom: 110px;
         }
 
         .hero::before {
@@ -90,6 +321,30 @@
             opacity: 0.85;
         }
 
+        .hero-logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            background: #f4ede0;
+            box-shadow:
+                0 14px 36px rgba(0, 0, 0, 0.32),
+                inset 0 -3px 8px rgba(140, 100, 50, 0.18),
+                inset 0 2px 4px rgba(255, 255, 255, 0.7),
+                0 0 0 1px rgba(200, 169, 107, 0.6);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-logo img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .hero h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(4rem, 10vw, 7rem);
@@ -112,41 +367,73 @@
 
         /* COUNTDOWN */
         .countdown {
-            margin-top: 18px;
+            margin-top: 40px;
             display: flex;
             justify-content: center;
-            gap: 14px;
+            gap: 32px;
             color: white;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
             z-index: 2;
-            font-weight: 600;
         }
 
         .countdown .box {
-            background: rgba(0, 0, 0, 0.25);
-            padding: 8px 12px;
-            border-radius: 10px;
-            min-width: 60px;
+            background: transparent;
+            padding: 0;
+            min-width: auto;
             text-align: center;
-            backdrop-filter: blur(4px);
+            backdrop-filter: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .countdown .box:not(:last-child)::after {
+            content: '·';
+            position: absolute;
+            right: -20px;
+            top: 4px;
+            font-size: 1.6rem;
+            opacity: 0.5;
         }
 
         .countdown .num {
-            font-size: 1.2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            line-height: 1;
             display: block;
+            margin-bottom: 8px;
+        }
+
+        .countdown .box span:last-child {
+            letter-spacing: 4px;
+            font-size: 0.58rem;
+            text-transform: uppercase;
+            opacity: 0.85;
         }
 
         .scroll-text {
             position: absolute;
-            bottom: 40px;
+            bottom: 28px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            letter-spacing: 4px;
-            font-size: 0.8rem;
+            letter-spacing: 5px;
+            font-size: 0.65rem;
             animation: bounce 2s infinite;
             z-index: 3;
+            opacity: 0.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scroll-text::after {
+            content: '';
+            width: 1px;
+            height: 24px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), transparent);
         }
 
         /* NAV (tabs) */
@@ -329,274 +616,427 @@
             /* wait until flap rotates a bit */
         }
 
-        /* DETAILS */
+        /* SHARED SECTION PATTERNS */
 
-        .details {
+        .section-head {
             text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-eyebrow {
+            display: block;
+            letter-spacing: 6px;
+            font-size: 0.66rem;
+            color: var(--gold);
+            margin-bottom: 18px;
+            text-transform: uppercase;
         }
 
         .section-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 4rem;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
             font-weight: 400;
-            margin-bottom: 80px;
+            line-height: 1;
+            margin: 0;
             text-align: center;
+            letter-spacing: 2px;
         }
 
-        .event-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            padding: 60px 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            margin-bottom: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transition: transform 0.4s ease;
+        .section-rule {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 28px auto 0;
+            position: relative;
         }
 
-        .event-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .event-icon {
-            width: 80px;
-            height: 80px;
+        .section-rule::before,
+        .section-rule::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
             border-radius: 50%;
-            margin: auto;
-            margin-bottom: 30px;
-            background: linear-gradient(180deg, #fffdf9, #efe2d4);
+            transform: translateY(-50%);
+        }
+        .section-rule::before { left: -10px; }
+        .section-rule::after { right: -10px; }
+
+        /* reveal utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition:
+                opacity 0.9s cubic-bezier(.22, 1, .36, 1),
+                transform 0.9s cubic-bezier(.22, 1, .36, 1);
+        }
+        .reveal.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* aloni decorativi (riutilizza floatGlow dell'intro) */
+        .with-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .with-glow::before,
+        .with-glow::after {
+            content: '';
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .with-glow::before {
+            top: 6%;
+            left: -120px;
+            background: radial-gradient(circle, rgba(200, 169, 107, 0.55), transparent 70%);
+            animation: floatGlow 12s ease-in-out infinite;
+        }
+
+        .with-glow::after {
+            bottom: 6%;
+            right: -120px;
+            background: radial-gradient(circle, rgba(217, 187, 179, 0.55), transparent 70%);
+            animation: floatGlow 15s ease-in-out infinite reverse;
+        }
+
+        .with-glow > .container,
+        .with-glow > .section-head {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CAMMEO (riutilizzato per icone) */
+
+        .cameo {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: #f4ede0;
+            box-shadow:
+                0 12px 30px rgba(45, 36, 48, 0.14),
+                inset 0 -4px 10px rgba(140, 100, 50, 0.16),
+                inset 0 2px 4px rgba(255, 255, 255, 0.7),
+                0 0 0 1px rgba(200, 169, 107, 0.55);
+            margin: 0 auto 32px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            color: var(--gold);
+            overflow: hidden;
+        }
+
+        .cameo svg {
+            width: 42px;
+            height: 42px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* BOTTONI GHOST coerenti */
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 999px;
+            background: transparent;
+            border: 1px solid rgba(200, 169, 107, 0.55);
+            color: var(--ink);
+            letter-spacing: 4px;
+            font-size: 0.66rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            transition: all 0.35s ease;
+            line-height: 1;
+        }
+
+        .btn-ghost:hover {
+            background: var(--gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(200, 169, 107, 0.35);
+        }
+
+        /* DETAILS */
+
+        .details {
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .event-card {
+            background: #fffdf8;
+            padding: 64px 40px 56px;
+            margin-bottom: 36px;
+            text-align: center;
+            position: relative;
+            border-radius: 4px;
+            box-shadow:
+                0 14px 36px rgba(45, 36, 48, 0.09),
+                inset 0 0 0 1px rgba(200, 169, 107, 0.18);
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 14px; left: 14px; right: 14px; bottom: 14px;
+            border: 1px solid rgba(200, 169, 107, 0.22);
+            pointer-events: none;
         }
 
         .event-card h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.9rem, 3.6vw, 2.4rem);
             font-weight: 400;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            letter-spacing: 2px;
         }
 
         .event-time {
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             color: var(--gold);
             margin-bottom: 20px;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
 
         .event-place {
-            font-size: 1.2rem;
-            line-height: 1.8;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.18rem;
+            line-height: 1.7;
             color: #5b4d4d;
+            font-style: italic;
+            margin-bottom: 14px;
         }
 
-        .maps-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 28px;
-            border-radius: 50px;
-            text-decoration: none;
-            color: white;
-            background: linear-gradient(90deg, #c7a36b, #b89052);
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            transition: all 0.4s ease;
+        .event-mini-rule {
+            width: 36px;
+            height: 1px;
+            background: rgba(200, 169, 107, 0.55);
+            margin: 22px auto 28px;
         }
 
-        .maps-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .calendar-btn {
-            display: inline-block;
-            margin-top: 12px;
-            margin-left: 10px;
-            padding: 10px 18px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, #ffffff, #f3efe8);
-            color: var(--ink);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-
-        .calendar-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        .event-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* TABLE SEARCH */
 
         .tables {
             text-align: center;
+            padding-top: 100px;
+            padding-bottom: 120px;
         }
 
         .search-box {
-            max-width: 700px;
+            max-width: 640px;
             margin: auto;
-            background: rgba(255, 255, 255, 0.75);
-            padding: 60px 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+            background: #fffdf8;
+            padding: 70px 40px 60px;
+            position: relative;
+            border-radius: 4px;
+            box-shadow:
+                0 14px 36px rgba(45, 36, 48, 0.09),
+                inset 0 0 0 1px rgba(200, 169, 107, 0.18);
+        }
+
+        .search-box::before {
+            content: '';
+            position: absolute;
+            top: 14px; left: 14px; right: 14px; bottom: 14px;
+            border: 1px solid rgba(200, 169, 107, 0.22);
+            pointer-events: none;
+        }
+
+        .search-box .section-eyebrow {
+            margin-bottom: 14px;
         }
 
         .search-box h3 {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
+            font-size: clamp(1.9rem, 3.6vw, 2.4rem);
             font-weight: 400;
-            margin-bottom: 20px;
-        }
-
-        .search-box p {
-            color: #6b6161;
-            margin-bottom: 35px;
+            margin: 0 0 26px;
+            letter-spacing: 2px;
         }
 
         .search-input {
             width: 100%;
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            background: rgba(255, 255, 255, 0.7);
+            max-width: 380px;
+            padding: 14px 8px;
+            border: none;
+            border-bottom: 1px solid rgba(200, 169, 107, 0.45);
+            background: transparent;
             font-size: 1rem;
             outline: none;
-            margin-bottom: 20px;
+            margin: 0 auto 30px;
+            display: block;
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: var(--ink);
+            transition: border-bottom-color 0.3s, transform 0.3s;
+        }
+
+        .search-input:focus {
+            border-bottom-color: var(--gold);
+        }
+
+        .search-input::placeholder {
+            color: #bcab9c;
+            font-style: italic;
+            letter-spacing: 1px;
         }
 
         .search-btn {
-            border: none;
-            padding: 18px 40px;
+            border: 1px solid rgba(200, 169, 107, 0.55);
+            background: transparent;
+            color: var(--ink);
+            padding: 14px 38px;
             border-radius: 999px;
-            background: linear-gradient(90deg, #c7a36b, #b89052);
-            color: white;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             cursor: pointer;
-            transition: all 0.4s ease;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            transition: all 0.35s ease;
         }
 
         .search-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background: var(--gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(200, 169, 107, 0.35);
         }
 
         .result {
-            margin-top: 35px;
-            font-size: 1.2rem;
+            margin-top: 28px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
             color: #4b4040;
             min-height: 40px;
+            line-height: 1.5;
+        }
+
+        .result strong {
+            color: var(--ink);
+            font-weight: 500;
         }
 
         /* =========================
-   STORY TIMELINE REFINED
-========================= */
+           STORY TIMELINE (polaroid)
+        ========================= */
 
         .story-section {
             position: relative;
-            padding: 100px 20px;
-            background: #faf6f1;
+            padding: 80px 20px 80px;
+            background: linear-gradient(180deg, #faf6f1 0%, #f4ebe2 100%);
             overflow: hidden;
-        }
-
-        .story-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            height: 1px;
-            width: 140px;
-            transform: translateY(-50%);
-        }
-
-        .story-item.left::before {
-            right: 50%;
-            background: linear-gradient(to left,
-                    rgba(201, 107, 109, .15),
-                    rgba(201, 107, 109, .55));
-        }
-
-        .story-item.right::before {
-            left: 50%;
-            background: linear-gradient(to right,
-                    rgba(201, 107, 109, .15),
-                    rgba(201, 107, 109, .55));
         }
 
         .story-container {
             position: relative;
-            max-width: 680px;
+            max-width: 460px;
             margin: auto;
         }
 
-        /* linea centrale */
+        /* linea centrale: track + fill scroll-driven */
 
         .story-line {
             position: absolute;
-            top: 100px;
-            bottom: 60px;
+            top: 150px;
+            bottom: 20px;
             left: 50%;
-
-            width: 2px;
-
+            width: 1px;
             transform: translateX(-50%);
-
-            background:
-                linear-gradient(to bottom,
-                    transparent 0%,
-                    rgba(201, 107, 109, .25) 8%,
-                    rgba(201, 107, 109, .8) 20%,
-                    rgba(201, 107, 109, .8) 80%,
-                    rgba(201, 107, 109, .25) 92%,
-                    transparent 100%);
-
-            box-shadow:
-                0 0 18px rgba(201, 107, 109, .3);
+            background: rgba(45, 36, 48, 0.08);
+            overflow: hidden;
+            pointer-events: none;
         }
 
-        /* heading */
-
-        .story-heading {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .story-heading span {
-            display: block;
-
-            letter-spacing: 5px;
-            font-size: .62rem;
-
-            color: var(--gold);
-
-            margin-bottom: 18px;
-        }
-
-        .story-heading h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(2.6rem, 5vw, 4rem);
-            font-weight: 400;
-            line-height: 1;
+        .story-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0%;
+            background: linear-gradient(to bottom,
+                    rgba(200, 169, 107, 0.9) 0%,
+                    rgba(201, 107, 109, 0.7) 100%);
+            box-shadow: 0 0 12px rgba(200, 169, 107, 0.55);
+            transition: height 0.18s ease-out;
         }
 
         /* item */
 
         .story-item {
             position: relative;
-
             display: flex;
-
-            margin-bottom: 48px;
+            margin-bottom: 18px;
+            opacity: 0;
+            transform: translateY(28px) rotate(var(--tilt, 0deg)) scale(0.96);
+            transition: opacity 0.85s cubic-bezier(.22, 1, .36, 1),
+                        transform 0.85s cubic-bezier(.22, 1, .36, 1);
         }
 
-        .story-item.left {
-            justify-content: flex-start;
+        .story-item.left { justify-content: flex-start; }
+        .story-item.right { justify-content: flex-end; }
+
+        .story-item.in-view {
+            opacity: 1;
+            transform: translateY(0) rotate(var(--tilt, 0deg)) scale(1);
         }
 
-        .story-item.right {
-            justify-content: flex-end;
+        /* connector orizzontale fra linea e card */
+
+        .story-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            height: 1px;
+            width: 22px;
+            background: linear-gradient(to right, rgba(200, 169, 107, 0.5), rgba(200, 169, 107, 0));
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: center;
+            transition: transform 0.7s 0.25s cubic-bezier(.22, 1, .36, 1);
+        }
+
+        .story-item.left::before {
+            right: calc(50% + 4px);
+            background: linear-gradient(to left, rgba(200, 169, 107, 0.55), rgba(200, 169, 107, 0));
+        }
+
+        .story-item.right::before {
+            left: calc(50% + 4px);
+            background: linear-gradient(to right, rgba(200, 169, 107, 0.55), rgba(200, 169, 107, 0));
+        }
+
+        .story-item.in-view::before {
+            transform: translateY(-50%) scaleX(1);
         }
 
         /* dot */
@@ -605,127 +1045,139 @@
             position: absolute;
             left: 50%;
             top: 50%;
-
-            width: 9px;
-            height: 9px;
-
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
-
             background: white;
             border: 1px solid var(--gold);
-
-            transform: translate(-50%, -50%);
-
+            transform: translate(-50%, -50%) scale(0);
             z-index: 3;
-
             box-shadow:
-                0 0 0 5px rgba(255, 255, 255, .7),
-                0 0 18px rgba(201, 107, 109, .2);
+                0 0 0 3px rgba(255, 255, 255, 0.65),
+                0 0 14px rgba(201, 107, 109, 0.22);
+            transition: transform 0.55s 0.35s cubic-bezier(.22, 1, .36, 1);
         }
 
-        /* card */
+        .story-item.in-view .story-dot {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* polaroid card — versione minimal compatta */
 
         .story-card {
-            width: 240px;
-
-            background: rgba(255, 255, 255, .52);
-
-            backdrop-filter: blur(10px);
-
-            border: 1px solid rgba(255, 255, 255, .5);
-
-            border-radius: 22px;
-
-            padding: 14px;
-
+            width: 140px;
+            background: #fffdf8;
+            padding: 6px 6px 10px;
             box-shadow:
-                0 10px 30px rgba(0, 0, 0, .05);
-
-            transition: .35s ease;
+                0 6px 16px rgba(45, 36, 48, 0.09),
+                0 1px 0 rgba(0, 0, 0, 0.03);
+            transition: transform 0.4s cubic-bezier(.22, 1, .36, 1),
+                        box-shadow 0.4s ease;
+            border-radius: 2px;
+            position: relative;
         }
 
         .story-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px) rotate(0deg) scale(1.08);
+            box-shadow:
+                0 18px 36px rgba(45, 36, 48, 0.18),
+                0 1px 0 rgba(0, 0, 0, 0.03);
+            z-index: 5;
         }
-
-        /* image */
 
         .story-card img,
         .story-placeholder {
             width: 100%;
-            height: auto;
-
-            object-fit: contain;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
             background: #f8f0e7;
-
-            border-radius: 14px;
-
-            margin-bottom: 12px;
+            margin-bottom: 6px;
+            display: block;
         }
-
-        /* placeholder */
 
         .story-placeholder {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-
+            gap: 6px;
             background:
-                linear-gradient(135deg,
-                    rgba(255, 255, 255, .7),
-                    rgba(240, 228, 218, .9));
-
-            border: 1px dashed rgba(201, 107, 109, .35);
-
-            color: #a08c8c;
-
-            letter-spacing: 3px;
-            font-size: .58rem;
+                linear-gradient(135deg, #fefaf3 0%, #f4e9da 100%);
+            text-align: center;
+            padding: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 0 0 1px rgba(200, 169, 107, 0.28);
         }
 
-        /* text */
+        .story-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg,
+                transparent 42%,
+                rgba(200, 169, 107, 0.22) 50%,
+                transparent 58%);
+            animation: shimmer 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .placeholder-icon {
+            width: 38px;
+            height: 38px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+
+        .placeholder-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.68rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-25%, -25%); }
+            50%      { transform: translate(25%, 25%); }
+        }
 
         .story-date {
-            font-size: .56rem;
-
-            letter-spacing: 3px;
-
+            font-size: 0.46rem;
+            letter-spacing: 2px;
             text-transform: uppercase;
-
             color: var(--gold);
-
-            margin-bottom: 8px;
+            margin-bottom: 3px;
+            text-align: center;
         }
 
         .story-text {
             font-family: 'Cormorant Garamond', serif;
-
-            font-size: 1.02rem;
-
-            line-height: 1.4;
-
+            font-size: 0.82rem;
+            line-height: 1.2;
             font-style: italic;
-
-            font-weight: 400;
-
             color: #5f5555;
+            text-align: center;
+            padding: 0 2px;
         }
 
-        /* mobile */
-
         @media(max-width:768px) {
-
-            .story-container {
-                max-width: 100%;
-            }
-
-            .story-line {
-                left: 18px;
-            }
-
-            .story-dot {
-                left: 18px;
-            }
+            .story-section { padding: 60px 20px 70px; }
+            .story-container { max-width: 100%; }
+            .story-line { left: 22px; top: 130px; }
+            .story-dot { left: 22px; }
 
             .story-item,
             .story-item.left,
@@ -733,24 +1185,48 @@
                 justify-content: flex-start;
             }
 
-            .story-item::before {
-                left: 18px;
-                width: 26px;
+            .story-item.left::before,
+            .story-item.right::before {
+                left: 26px;
+                right: auto;
+                width: 18px;
+                transform-origin: left center;
+                background: linear-gradient(to right, rgba(200, 169, 107, 0.55), rgba(200, 169, 107, 0));
             }
 
             .story-card {
-                margin-left: 36px;
-                width: 220px;
+                margin-left: 52px;
+                width: 130px;
             }
 
-            .story-card img,
-            .story-placeholder {
-                height: auto;
-            }
+            .story-item { margin-bottom: 14px; }
+        }
 
-            .story-item {
-                margin-bottom: 40px;
-            }
+        /* SECTION DIVIDER con logo */
+
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin: 0 auto;
+            max-width: 420px;
+            padding: 20px 24px 0;
+            opacity: 0.95;
+        }
+
+        .section-divider .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(200, 169, 107, 0.55), transparent);
+        }
+
+        .section-divider .mark {
+            width: 42px;
+            height: 42px;
+            flex-shrink: 0;
+            display: block;
+            mix-blend-mode: multiply;
         }
 
         footer {
@@ -758,6 +1234,22 @@
             padding: 60px 20px;
             color: #6f6666;
             letter-spacing: 2px;
+        }
+
+        footer .footer-logo {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            display: block;
+            mix-blend-mode: multiply;
+            opacity: 0.92;
+        }
+
+        footer .footer-rule {
+            width: 56px;
+            height: 1px;
+            background: rgba(200, 169, 107, 0.6);
+            margin: 0 auto 18px;
         }
 
         @keyframes fadeUp {
@@ -822,6 +1314,35 @@
             .envelope {
                 width: 300px;
             }
+
+            .intro-side {
+                display: none;
+            }
+
+            .intro-hint {
+                margin-top: 32px;
+            }
+
+            .countdown {
+                gap: 22px;
+                margin-top: 28px;
+            }
+
+            .countdown .num {
+                font-size: 1.9rem;
+            }
+
+            .countdown .box:not(:last-child)::after {
+                right: -14px;
+            }
+
+            .scroll-text {
+                display: none;
+            }
+
+            .hero {
+                padding-bottom: 60px;
+            }
         }
     </style>
 </head>
@@ -832,12 +1353,37 @@
         <source src="assets/ordinary.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- INTRO COVER: la busta-soglia che si apre per entrare nel sito -->
+    <div class="intro-cover" id="introCover">
+
+        <div class="intro-side">Wedding · 03 · 10 · 2026 · Napoli</div>
+        <div class="intro-side right">Ciro &amp; Amalia · Save the date</div>
+
+        <div class="intro-eyebrow">Hai ricevuto un invito</div>
+        <div class="intro-monogram">Ciro &amp; Amalia</div>
+        <div class="intro-rule"></div>
+
+        <div class="big-envelope" id="bigEnvelope" role="button" tabindex="0" aria-label="Apri l'invito">
+
+            <div class="big-base"></div>
+            <div class="big-flap"></div>
+
+            <div class="big-wax">
+                <img src="assets/logo-small.png" alt="Monogramma C&A">
+            </div>
+
+        </div>
+
+        <div class="intro-hint">Tocca la busta per aprire</div>
+
+    </div>
+
     <section class="hero">
 
         <div class="hero-content">
 
-            <div class="hero-sub">
-                Hai ricevuto un invito
+            <div class="hero-logo">
+                <img src="assets/logo-small.png" alt="Monogramma Ciro & Amalia">
             </div>
 
             <h1>CIRO</h1>
@@ -869,18 +1415,24 @@
         <a href="#tavolo">Tavolo</a>
     </div>
 
+    <div class="section-divider">
+        <span class="line"></span>
+        <img src="assets/logo-small.png" alt="" class="mark">
+        <span class="line"></span>
+    </div>
+
     <section class="story-section">
 
         <div class="story-container">
 
-            <div class="story-line"></div>
+            <div class="story-line">
+                <div class="story-line-fill" id="storyLineFill"></div>
+            </div>
 
-            <div class="story-heading">
-                <span>LA NOSTRA STORIA</span>
-
-                <h2>
-                    Tutto ci ha portati qui
-                </h2>
+            <div class="section-head">
+                <span class="section-eyebrow">La nostra storia</span>
+                <h2 class="section-title">Tutto ci ha portati qui</h2>
+                <div class="section-rule"></div>
             </div>
 
             <!-- 1 -->
@@ -918,7 +1470,7 @@
                     </div>
 
                     <div class="story-text">
-                        Il nostro primo weekend insieme
+                        Il primo weekend insieme
                     </div>
 
                 </div>
@@ -1164,7 +1716,10 @@
                 <div class="story-card">
 
                     <div class="story-placeholder">
-                        FOTO IN ARRIVO
+                        <svg class="placeholder-icon" viewBox="0 0 64 64" aria-hidden="true">
+                            <path d="M32 50 L18 36 Q10 28 16 20 Q24 14 32 22 Q40 14 48 20 Q54 28 46 36 Z" />
+                        </svg>
+                        <span class="placeholder-text">presto</span>
                     </div>
 
                     <div class="story-date">
@@ -1186,7 +1741,15 @@
 
                 <div class="story-card">
 
-                    <img src="assets/story4.jpg" alt="">
+                    <div class="story-placeholder">
+                        <svg class="placeholder-icon" viewBox="0 0 64 64" aria-hidden="true">
+                            <circle cx="24" cy="34" r="12" />
+                            <circle cx="40" cy="34" r="12" />
+                            <path d="M32 16 L32 22" />
+                            <path d="M28 19 L36 19" />
+                        </svg>
+                        <span class="placeholder-text">presto</span>
+                    </div>
 
                     <div class="story-date">
                         3 OTTOBRE 2026
@@ -1204,109 +1767,96 @@
 
     </section>
 
-    <section class="envelope-section">
+    <div class="section-divider">
+        <span class="line"></span>
+        <img src="assets/logo-small.png" alt="" class="mark">
+        <span class="line"></span>
+    </div>
 
-        <div class="invite-text">
-            <h2>Apri l'invito</h2>
-        </div>
-
-        <div class="envelope" id="envelope">
-
-            <div class="envelope-base"></div>
-
-            <div class="envelope-flap"></div>
-
-            <div class="wax">
-                <img src="assets/logo-small.png" alt="AC" class="logo-wax">
-            </div>
-
-            <div class="letter">
-
-                <h3>
-                    Ciro & Amalia
-                </h3>
-
-                <p>
-                    annunciano il loro matrimonio
-                </p>
-
-                <p>
-                    03 · 10 · 2026<br>
-                    Napoli
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section class="details">
+    <section class="details with-glow">
 
         <div class="container">
 
-            <h2 class="section-title">
-                Il Matrimonio
-            </h2>
+            <div class="section-head">
+                <span class="section-eyebrow">03 · 10 · 2026 — Napoli</span>
+                <h2 class="section-title">Il Matrimonio</h2>
+                <div class="section-rule"></div>
+            </div>
 
-            <div id="chiesa" class="event-card">
+            <div id="chiesa" class="event-card reveal">
 
-                <div class="event-icon">
-                    ⛪
+                <div class="cameo">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M32 6 L32 14" />
+                        <path d="M28 10 L36 10" />
+                        <path d="M32 14 L32 22" />
+                        <path d="M18 30 L32 22 L46 30 L46 54 L18 54 Z" />
+                        <path d="M28 54 L28 42 Q32 38 36 42 L36 54" />
+                        <path d="M14 54 L50 54" />
+                    </svg>
                 </div>
 
-                <h3>
-                    Cerimonia Religiosa
-                </h3>
+                <h3>Cerimonia Religiosa</h3>
 
-                <div class="event-time">
-                    ore 10:30
-                </div>
+                <div class="event-time">ore 10:30</div>
 
                 <div class="event-place">
                     Basilica di Santa Maria della Sanità<br>
                     Piazza Sanità, 33 — Napoli
                 </div>
 
-                <a class="maps-btn"
-                    href="https://www.google.com/maps/search/?api=1&query=Basilica+di+Santa+Maria+della+Sanit%C3%A0+Napoli"
-                    target="_blank" rel="noopener">
-                    APRI MAPPA
-                </a>
-                <button class="calendar-btn"
-                    onclick="addCalendar('Cerimonia Religiosa','Basilica di Santa Maria della Sanità, Piazza Sanità 33, Napoli','2026-10-03T10:30:00','2026-10-03T11:30:00','Cerimonia religiosa di Ciro e Amalia. Vi aspettiamo per celebrare insieme. Indirizzo: Piazza Sanità 33, Napoli.')">Aggiungi
-                    al calendario</button>
+                <div class="event-mini-rule"></div>
+
+                <div class="event-actions">
+                    <a class="btn-ghost"
+                        href="https://www.google.com/maps/search/?api=1&query=Basilica+di+Santa+Maria+della+Sanit%C3%A0+Napoli"
+                        target="_blank" rel="noopener">
+                        Apri mappa
+                    </a>
+                    <button class="btn-ghost"
+                        onclick="addCalendar('Cerimonia Religiosa','Basilica di Santa Maria della Sanità, Piazza Sanità 33, Napoli','2026-10-03T10:30:00','2026-10-03T11:30:00','Cerimonia religiosa di Ciro e Amalia. Vi aspettiamo per celebrare insieme. Indirizzo: Piazza Sanità 33, Napoli.')">
+                        Aggiungi al calendario
+                    </button>
+                </div>
 
             </div>
 
 
-            <div id="ricevimento" class="event-card">
+            <div id="ricevimento" class="event-card reveal">
 
-                <div class="event-icon">
-                    🍽️
+                <div class="cameo">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <path d="M14 12 L26 14 Q26 28 20 32 Q15 30 14 18 Z" />
+                        <path d="M20 32 L22 48" />
+                        <path d="M16 48 L28 48" />
+                        <path d="M50 12 L38 14 Q38 28 44 32 Q49 30 50 18 Z" />
+                        <path d="M44 32 L42 48" />
+                        <path d="M36 48 L48 48" />
+                    </svg>
                 </div>
 
-                <h3>
-                    Ricevimento
-                </h3>
+                <h3>Ricevimento</h3>
 
-                <div class="event-time">
-                    ore 13:30
-                </div>
+                <div class="event-time">ore 13:30</div>
 
                 <div class="event-place">
                     Il San Cristoforo<br>
                     Via Sacerdote Cozzolino Benedetto, 29 — Ercolano
                 </div>
 
-                <a class="maps-btn" href="https://www.google.com/maps/search/?api=1&query=Il+San+Cristoforo+Ercolano"
-                    target="_blank" rel="noopener">
-                    APRI MAPPA
-                </a>
-                <button class="calendar-btn"
-                    onclick="addCalendar('Ricevimento','Il San Cristoforo, Via Sacerdote Cozzolino Benedetto 29, Ercolano','2026-10-03T13:30:00','2026-10-03T17:00:00','Ricevimento di Ciro e Amalia presso Il San Cristoforo. Ore 13:30. Indirizzo: Via Sacerdote Cozzolino Benedetto 29, Ercolano.')">Aggiungi
-                    al calendario</button>
+                <div class="event-mini-rule"></div>
+
+                <div class="event-actions">
+                    <a class="btn-ghost"
+                        href="https://www.google.com/maps/search/?api=1&query=Il+San+Cristoforo+Ercolano"
+                        target="_blank" rel="noopener">
+                        Apri mappa
+                    </a>
+                    <button class="btn-ghost"
+                        onclick="addCalendar('Ricevimento','Il San Cristoforo, Via Sacerdote Cozzolino Benedetto 29, Ercolano','2026-10-03T13:30:00','2026-10-03T17:00:00','Ricevimento di Ciro e Amalia presso Il San Cristoforo. Ore 13:30. Indirizzo: Via Sacerdote Cozzolino Benedetto 29, Ercolano.')">
+                        Aggiungi al calendario
+                    </button>
+                </div>
 
             </div>
 
@@ -1315,24 +1865,25 @@
     </section>
 
 
-    <section id="tavolo" class="tables">
+    <div class="section-divider">
+        <span class="line"></span>
+        <img src="assets/logo-small.png" alt="" class="mark">
+        <span class="line"></span>
+    </div>
+
+    <section id="tavolo" class="tables with-glow">
 
         <div class="container">
 
-            <div class="search-box">
+            <div class="search-box reveal">
 
-                <h3>
-                    Trova il tuo tavolo
-                </h3>
+                <span class="section-eyebrow">— I tuoi posti —</span>
+                <h3>Trova il tuo tavolo</h3>
 
-                <p>
-                    Inserisci nome e cognome
-                </p>
-
-                <input type="text" id="guestName" class="search-input" placeholder="Nome Cognome">
+                <input type="text" id="guestName" class="search-input" placeholder="Nome e cognome">
 
                 <button class="search-btn" onclick="findTable()">
-                    CERCA
+                    Cerca
                 </button>
 
                 <div class="result" id="result"></div>
@@ -1344,46 +1895,53 @@
     </section>
 
     <footer>
-        Con amore — Ciro & Amalia
+        <img src="assets/logo-small.png" alt="Monogramma Ciro & Amalia" class="footer-logo">
+        <div class="footer-rule"></div>
+        Con amore — Ciro &amp; Amalia
     </footer>
 
 
     <script>
 
-        const envelope = document.getElementById('envelope');
+        // INTRO COVER — apertura busta-soglia
+        const bigEnvelope = document.getElementById('bigEnvelope');
+        const introCover = document.getElementById('introCover');
         const music = document.getElementById('bgMusic');
 
-        let musicStarted = false;
+        let introOpened = false;
 
-        envelope.addEventListener('click', () => {
+        function openIntro() {
+            if (introOpened) return;
+            introOpened = true;
 
-            const isOpening = !envelope.classList.contains('open');
-            envelope.classList.toggle('open');
+            bigEnvelope.classList.add('opening');
 
-            // scroll solo quando si apre
-            if (isOpening) {
-                setTimeout(() => {
-                    document.querySelector('.letter')
-                        .scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 600);
+            // avvia musica al gesto utente
+            music.load();
+            music.volume = 0.35;
+            music.play().catch(() => { /* autoplay bloccato: ignora */ });
+
+            // appena il flap si apre, dissolvi subito la cover
+            setTimeout(() => {
+                introCover.classList.add('exit');
+                document.body.style.overflow = 'auto';
+            }, 700);
+
+            // rimuovi cover dal flusso dopo la transizione
+            setTimeout(() => {
+                introCover.remove();
+            }, 2400);
+        }
+
+        // blocca lo scroll finché la cover è attiva
+        document.body.style.overflow = 'hidden';
+
+        bigEnvelope.addEventListener('click', openIntro);
+        bigEnvelope.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openIntro();
             }
-
-            // 🔊 gestione musica
-            if (isOpening) {
-
-                music.load();
-                music.volume = 0.4;
-                music.play()
-                    .then(() => console.log("Musica partita"))
-                    .catch(err => console.log("Errore play:", err));
-
-            } else {
-
-                music.pause();
-                music.currentTime = 0; // opzionale: riparte da capo quando riapri
-                console.log("Musica fermata");
-            }
-
         });
 
 
@@ -1421,6 +1979,73 @@
         `;
             }
         }
+
+        // STORY TIMELINE — tilt random + reveal on scroll + line fill
+        (function () {
+            const items = document.querySelectorAll('.story-item');
+            const tilts = [-2.5, 1.8, -1.6, 2.2, -2.0, 1.4, -1.2, 2.5, -1.9, 1.6, -2.3, 1.2, -1.4, 2.0, -1.8];
+
+            items.forEach((item, i) => {
+                item.style.setProperty('--tilt', `${tilts[i % tilts.length]}deg`);
+            });
+
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            io.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.18, rootMargin: '0px 0px -60px 0px' });
+                items.forEach(item => io.observe(item));
+            } else {
+                items.forEach(item => item.classList.add('in-view'));
+            }
+
+            // line fill scroll-driven
+            const section = document.querySelector('.story-section');
+            const fill = document.getElementById('storyLineFill');
+            if (section && fill) {
+                let ticking = false;
+                function updateFill() {
+                    const rect = section.getBoundingClientRect();
+                    const vh = window.innerHeight;
+                    const start = vh * 0.5;
+                    const end = rect.height - vh * 0.3;
+                    const scrolled = start - rect.top;
+                    const pct = Math.max(0, Math.min(1, scrolled / end));
+                    fill.style.height = (pct * 100) + '%';
+                    ticking = false;
+                }
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(updateFill);
+                        ticking = true;
+                    }
+                }, { passive: true });
+                updateFill();
+            }
+        })();
+
+        // REVEAL utility (event-card, search-box, ...)
+        (function () {
+            const reveals = document.querySelectorAll('.reveal');
+            if (!reveals.length) return;
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            io.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+                reveals.forEach(r => io.observe(r));
+            } else {
+                reveals.forEach(r => r.classList.add('in-view'));
+            }
+        })();
 
         // Countdown
         (function () {

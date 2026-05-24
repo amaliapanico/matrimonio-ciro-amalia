@@ -947,6 +947,142 @@
             font-weight: 500;
         }
 
+        /* PHOTOS (album condiviso) */
+
+        .photos {
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 120px;
+        }
+
+        .photos-box {
+            max-width: 640px;
+            margin: auto;
+            background: #fffdf8;
+            padding: 70px 40px 60px;
+            position: relative;
+            border-radius: 4px;
+            box-shadow:
+                0 14px 36px rgba(45, 36, 48, 0.09),
+                inset 0 0 0 1px rgba(200, 169, 107, 0.18);
+        }
+
+        .photos-box::before {
+            content: '';
+            position: absolute;
+            top: 14px; left: 14px; right: 14px; bottom: 14px;
+            border: 1px solid rgba(200, 169, 107, 0.22);
+            pointer-events: none;
+        }
+
+        .photos-box > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .photos-intro {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #5b4d4d;
+            font-style: italic;
+            margin: 0 auto;
+            max-width: 440px;
+        }
+
+        .photos-hint {
+            margin-top: 28px;
+            letter-spacing: 3px;
+            font-size: 0.6rem;
+            color: rgba(45, 36, 48, 0.5);
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-ghost.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* UPLOAD FORM */
+
+        .photo-uploader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        .photo-uploader .search-input {
+            margin: 0;
+        }
+
+        .upload-label {
+            position: relative;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .upload-label input[type="file"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .upload-files-info {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #6f6666;
+            min-height: 1.2em;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .upload-progress {
+            width: 100%;
+            height: 2px;
+            background: rgba(200, 169, 107, 0.18);
+            overflow: hidden;
+            border-radius: 99px;
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, rgba(200, 169, 107, 0.9), rgba(201, 107, 109, 0.7));
+            transition: width 0.4s ease;
+        }
+
+        .upload-status {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: #5b4d4d;
+            min-height: 1.4em;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .upload-status strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        button.btn-ghost {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        button.btn-ghost:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         /* =========================
            STORY TIMELINE (polaroid)
         ========================= */
@@ -1085,14 +1221,18 @@
             z-index: 5;
         }
 
-        .story-card img,
+        .story-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 6px;
+            background: #f4ede0;
+        }
+
         .story-placeholder {
             width: 100%;
             aspect-ratio: 1 / 1;
-            object-fit: contain !important;
-            background: #f8f0e7;
             margin-bottom: 6px;
-            display: block;
         }
 
         .story-placeholder {
@@ -1413,6 +1553,7 @@
         <a href="#chiesa">Chiesa</a>
         <a href="#ricevimento">Ricevimento</a>
         <a href="#tavolo">Tavolo</a>
+        <a href="#foto">Foto</a>
     </div>
 
     <div class="section-divider">
@@ -1449,7 +1590,7 @@
                     </div>
 
                     <div class="story-text">
-                        L'inizio di tutto
+                        Dove tutto è iniziato
                     </div>
 
                 </div>
@@ -1470,7 +1611,7 @@
                     </div>
 
                     <div class="story-text">
-                        Abbiamo scoperto il mondo insieme
+                        Il mondo, mano nella mano
                     </div>
 
                 </div>
@@ -1491,7 +1632,7 @@
                     </div>
 
                     <div class="story-text">
-                        La nostra laurea
+                        Insieme verso il futuro
                     </div>
 
                 </div>
@@ -1512,7 +1653,7 @@
                     </div>
 
                     <div class="story-text">
-                        La proposta di matrimonio
+                        Mi vuoi sposare?
                     </div>
 
                 </div>
@@ -1532,7 +1673,7 @@
                     </div>
 
                     <div class="story-text">
-                        La nostra casa
+                        La nostra casa, il nostro nido
                     </div>
 
                 </div>
@@ -1558,7 +1699,7 @@
                     </div>
 
                     <div class="story-text">
-                        La nostra promessa
+                        Una promessa per la vita
                     </div>
 
                 </div>
@@ -1587,7 +1728,7 @@
                     </div>
 
                     <div class="story-text">
-                        Il giorno del nostro sì
+                        Il nostro per sempre
                     </div>
 
                 </div>
@@ -1725,6 +1866,67 @@
 
     </section>
 
+    <div class="section-divider">
+        <span class="line"></span>
+        <img src="assets/logo-small.png" alt="" class="mark">
+        <span class="line"></span>
+    </div>
+
+    <section id="foto" class="photos with-glow">
+
+        <div class="container">
+
+            <div class="section-head">
+                <span class="section-eyebrow">— Condividi i tuoi scatti —</span>
+                <h2 class="section-title">Le nostre foto</h2>
+                <div class="section-rule"></div>
+            </div>
+
+            <div class="photos-box reveal">
+
+                <div class="cameo">
+                    <svg viewBox="0 0 64 64" aria-hidden="true">
+                        <rect x="10" y="22" width="44" height="28" rx="2" />
+                        <path d="M22 22 L26 16 L38 16 L42 22" />
+                        <circle cx="32" cy="36" r="8" />
+                        <circle cx="46" cy="28" r="1.2" />
+                    </svg>
+                </div>
+
+                <p class="photos-intro">
+                    Ogni vostro scatto è un ricordo prezioso.<br>
+                    Aiutateci a raccogliere tutti gli istanti del nostro giorno: caricate qui le vostre foto.
+                </p>
+
+                <div class="event-mini-rule"></div>
+
+                <form class="photo-uploader" onsubmit="event.preventDefault(); uploadPhotos();">
+
+                    <input type="text" id="uploaderName" class="search-input" placeholder="Il tuo nome (facoltativo)">
+
+                    <label class="btn-ghost upload-label" for="photoFiles">
+                        Scegli le foto
+                        <input type="file" id="photoFiles" accept="image/*" multiple onchange="updateFilesInfo()">
+                    </label>
+
+                    <div class="upload-files-info" id="filesInfo"></div>
+
+                    <button type="submit" class="btn-ghost" id="uploadBtn" disabled>Carica</button>
+
+                    <div class="upload-progress" hidden id="uploadProgress">
+                        <div class="upload-progress-bar" id="uploadProgressBar"></div>
+                    </div>
+
+                    <div class="upload-status" id="uploadStatus"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
     <footer>
         <img src="assets/logo-small.png" alt="Monogramma Ciro & Amalia" class="footer-logo">
         <div class="footer-rule"></div>
@@ -1808,6 +2010,103 @@
         I tavoli sono ancora in fase di organizzazione ✨<br><br>
         Stay tuned… dateci ancora un pochino di tempo 💌
         `;
+            }
+        }
+
+        // PHOTO UPLOAD — invia foto al web app Apps Script su Google Drive
+        // 1) Deploya lo script Apps Script come Web App (vedi istruzioni)
+        // 2) Incolla qui sotto l'URL del Web App (formato https://script.google.com/macros/s/.../exec)
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcYylC1gwcbXpzGb9rL-y2gu5oLR4_9H3bVXquA45cLj5xuRk9SdGZawrrM0t8ze-U/exec';
+
+        const MAX_FILE_MB = 25;
+
+        function updateFilesInfo() {
+            const input = document.getElementById('photoFiles');
+            const info = document.getElementById('filesInfo');
+            const btn = document.getElementById('uploadBtn');
+            const files = Array.from(input.files);
+
+            if (!files.length) {
+                info.textContent = '';
+                btn.disabled = true;
+                return;
+            }
+
+            const tooBig = files.filter(f => f.size > MAX_FILE_MB * 1024 * 1024);
+            const count = files.length;
+            const label = count === 1 ? 'foto selezionata' : 'foto selezionate';
+            info.innerHTML = `${count} ${label}` +
+                (tooBig.length ? `<br><span style="color:#c96b6d">${tooBig.length} troppo grande (max ${MAX_FILE_MB}MB)</span>` : '');
+            btn.disabled = false;
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function uploadPhotos() {
+            const input = document.getElementById('photoFiles');
+            const name = document.getElementById('uploaderName').value.trim() || 'Ospite';
+            const status = document.getElementById('uploadStatus');
+            const progressBar = document.getElementById('uploadProgressBar');
+            const progressWrap = document.getElementById('uploadProgress');
+            const btn = document.getElementById('uploadBtn');
+            const info = document.getElementById('filesInfo');
+            const files = Array.from(input.files).filter(f => f.size <= MAX_FILE_MB * 1024 * 1024);
+
+            if (!files.length) {
+                status.textContent = 'Seleziona almeno una foto.';
+                return;
+            }
+
+            if (!APPS_SCRIPT_URL) {
+                status.innerHTML = 'Il caricamento sarà attivo a breve, riprova tra qualche giorno 💌';
+                return;
+            }
+
+            btn.disabled = true;
+            progressWrap.hidden = false;
+            progressBar.style.width = '0%';
+            let done = 0;
+            let failed = 0;
+
+            for (const file of files) {
+                status.innerHTML = `Caricamento <strong>${done + 1}</strong> di <strong>${files.length}</strong>...`;
+                try {
+                    const base64 = await fileToBase64(file);
+                    const resp = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            fileName: file.name,
+                            mimeType: file.type || 'image/jpeg',
+                            fileData: base64,
+                            uploadedBy: name,
+                        }),
+                    });
+                    const result = await resp.json();
+                    if (result.success) done++; else failed++;
+                } catch (err) {
+                    console.error('Upload error', file.name, err);
+                    failed++;
+                }
+                progressBar.style.width = ((done + failed) / files.length * 100) + '%';
+            }
+
+            input.value = '';
+            info.textContent = '';
+            btn.disabled = true;
+
+            if (done && !failed) {
+                status.innerHTML = `<strong>Grazie ${name}!</strong> Hai caricato ${done} ${done === 1 ? 'foto' : 'foto'}. 💛`;
+            } else if (done && failed) {
+                status.innerHTML = `Caricate ${done} foto. ${failed} non sono andate a buon fine, riprova.`;
+            } else {
+                status.innerHTML = `Qualcosa è andato storto, riprova tra poco.`;
             }
         }
 

@@ -1102,6 +1102,10 @@
             text-align: center;
         }
 
+        #galleryMoreBtn {
+            margin-top: 28px;
+        }
+
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -2133,12 +2137,38 @@
             btn.disabled = false;
         }
 
-        function fileToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result.split(',')[1]);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
+        // Comprime l'immagine a max 1600px e qualità 0.82 prima di inviarla
+        function compressAndEncode(file) {
+            return new Promise((resolve) => {
+                if (!file.type.startsWith('image/') || file.type === 'image/gif') {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve({ base64: reader.result.split(',')[1], mimeType: file.type });
+                    reader.readAsDataURL(file);
+                    return;
+                }
+                const img = new Image();
+                const url = URL.createObjectURL(file);
+                img.onload = () => {
+                    URL.revokeObjectURL(url);
+                    const MAX_PX = 2400;
+                    const scale = Math.min(1, MAX_PX / Math.max(img.width, img.height));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.round(img.width * scale);
+                    canvas.height = Math.round(img.height * scale);
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    canvas.toBlob((blob) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve({ base64: reader.result.split(',')[1], mimeType: 'image/jpeg' });
+                        reader.readAsDataURL(blob);
+                    }, 'image/jpeg', 0.92);
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    const reader = new FileReader();
+                    reader.onload = () => resolve({ base64: reader.result.split(',')[1], mimeType: file.type });
+                    reader.readAsDataURL(file);
+                };
+                img.src = url;
             });
         }
 
@@ -2165,21 +2195,24 @@
             btn.disabled = true;
             progressWrap.hidden = false;
             progressBar.style.width = '0%';
+            status.innerHTML = 'Preparazione foto…';
             let done = 0;
             let failed = 0;
 
-            for (const file of files) {
-                status.innerHTML = `Caricamento <strong>${done + 1}</strong> di <strong>${files.length}</strong>...`;
+            function tick() {
+                const total = done + failed;
+                progressBar.style.width = (total / files.length * 100) + '%';
+                if (total < files.length) {
+                    status.innerHTML = `Caricamento <strong>${total + 1}</strong> di <strong>${files.length}</strong>…`;
+                }
+            }
+
+            async function uploadOne(file) {
                 try {
-                    const base64 = await fileToBase64(file);
+                    const { base64, mimeType } = await compressAndEncode(file);
                     const resp = await fetch(APPS_SCRIPT_URL, {
                         method: 'POST',
-                        body: JSON.stringify({
-                            fileName: file.name,
-                            mimeType: file.type || 'image/jpeg',
-                            fileData: base64,
-                            uploadedBy: name,
-                        }),
+                        body: JSON.stringify({ fileName: file.name, mimeType, fileData: base64, uploadedBy: name }),
                     });
                     const result = await resp.json();
                     if (result.success) done++; else failed++;
@@ -2187,12 +2220,18 @@
                     console.error('Upload error', file.name, err);
                     failed++;
                 }
-                progressBar.style.width = ((done + failed) / files.length * 100) + '%';
+                tick();
+            }
+
+            // Upload a coppie per velocizzare
+            for (let i = 0; i < files.length; i += 2) {
+                await Promise.all(files.slice(i, i + 2).map(uploadOne));
             }
 
             input.value = '';
             info.textContent = '';
             btn.disabled = true;
+            galleryLoaded = false; // forza ricaricamento gallery dopo upload
 
             if (done && !failed) {
                 status.innerHTML = `<strong>Grazie ${name}!</strong> Hai caricato ${done} ${done === 1 ? 'foto' : 'foto'}. 💛`;
@@ -2206,6 +2245,9 @@
         // PHOTO GALLERY — mostra le foto caricate dagli ospiti
         let galleryLoaded = false;
         let galleryVisible = false;
+        let allPhotos = [];
+        let galleryPage = 0;
+        const GALLERY_PAGE_SIZE = 24;
 
         async function toggleGallery() {
             const btn = document.getElementById('galleryBtn');
@@ -2238,21 +2280,51 @@
                     return;
                 }
 
+                allPhotos = data.photos;
+                galleryPage = 0;
                 grid.innerHTML = '';
-                data.photos.forEach(photo => {
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    const img = document.createElement('img');
-                    img.src = 'https://drive.google.com/thumbnail?id=' + photo.id + '&sz=w400';
-                    img.alt = photo.name || 'Foto';
-                    img.loading = 'lazy';
-                    img.onclick = () => openLightbox('https://drive.google.com/thumbnail?id=' + photo.id + '&sz=w1200');
-                    item.appendChild(img);
-                    grid.appendChild(item);
-                });
+                renderGalleryPage();
             } catch (err) {
                 status.textContent = 'Impossibile caricare le foto, riprova tra poco.';
                 console.error('Gallery error', err);
+            }
+        }
+
+        function renderGalleryPage() {
+            const grid = document.getElementById('galleryGrid');
+            const status = document.getElementById('galleryStatus');
+
+            const existing = document.getElementById('galleryMoreBtn');
+            if (existing) existing.remove();
+
+            const slice = allPhotos.slice(galleryPage * GALLERY_PAGE_SIZE, (galleryPage + 1) * GALLERY_PAGE_SIZE);
+
+            slice.forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                const img = document.createElement('img');
+                img.src = 'https://drive.google.com/thumbnail?id=' + photo.id + '&sz=w400';
+                img.alt = photo.name || 'Foto';
+                img.loading = 'lazy';
+                img.onclick = () => openLightbox('https://drive.google.com/thumbnail?id=' + photo.id + '&sz=w1200');
+                item.appendChild(img);
+                grid.appendChild(item);
+            });
+
+            galleryPage++;
+
+            const shown = Math.min(galleryPage * GALLERY_PAGE_SIZE, allPhotos.length);
+            status.textContent = shown + ' di ' + allPhotos.length + ' foto';
+
+            const remaining = allPhotos.length - galleryPage * GALLERY_PAGE_SIZE;
+            if (remaining > 0) {
+                const moreBtn = document.createElement('button');
+                moreBtn.id = 'galleryMoreBtn';
+                moreBtn.className = 'btn-ghost';
+                moreBtn.style.cssText = 'display:block;margin:28px auto 0';
+                moreBtn.textContent = 'Vedi altre ' + Math.min(remaining, GALLERY_PAGE_SIZE) + ' foto';
+                moreBtn.onclick = renderGalleryPage;
+                grid.insertAdjacentElement('afterend', moreBtn);
             }
         }
 

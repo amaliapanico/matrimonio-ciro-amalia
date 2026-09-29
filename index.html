@@ -1587,8 +1587,8 @@
         <source src="assets/ordinary.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- INTRO COVER: la busta-soglia che si apre per entrare nel sito -->
-    <div class="intro-cover" id="introCover">
+    <!-- INTRO COVER rimossa: si accede direttamente al sito -->
+    <div class="intro-cover" id="introCover" style="display:none">
 
         <div class="intro-side">Wedding · 03 · 10 · 2026 · Napoli</div>
         <div class="intro-side right">Ciro &amp; Amalia · Save the date</div>
@@ -2063,23 +2063,152 @@
             }, 2400);
         }
 
-        // blocca lo scroll finché la cover è attiva
-        document.body.style.overflow = 'hidden';
-
-        bigEnvelope.addEventListener('click', openIntro);
-        bigEnvelope.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openIntro();
-            }
-        });
+        // intro cover disabilitata: accesso diretto al sito
+        document.body.style.overflow = 'auto';
 
 
         const invitati = {
-            "mario rossi": "Tavolo Limoni 🍋",
-            "anna esposito": "Tavolo Rose 🌹",
-            "giuseppe ferrara": "Tavolo Orchidee 🌸",
-            "lucia romano": "Tavolo Ulivi 🌿"
+            "arianna ciullo": "Tavolo One",
+            "rocco scavante": "Tavolo One",
+            "benzo ciullo": "Tavolo One",
+            "mirna markabaoui": "Tavolo One",
+            "antonio di costanzo": "Tavolo One",
+            "raffaella pagano": "Tavolo One",
+            "martina di costanzo": "Tavolo One",
+            "luigi rimoli": "Tavolo One",
+            "veronica de martino": "Tavolo One",
+            "mary esposito": "Tavolo One",
+            "simona garofano": "Tavolo Two",
+            "nunzio passetti": "Tavolo Two",
+            "amalia garofano": "Tavolo Two",
+            "francesco capriello": "Tavolo Two",
+            "sabrina giordano": "Tavolo Two",
+            "francesco garofano": "Tavolo Two",
+            "isabel garofano": "Tavolo Two",
+            "anna garofano": "Tavolo Two",
+            "antonio simeone": "Tavolo Two",
+            "maria simeone": "Tavolo Two",
+            "giuseppe filangieri": "Tavolo Three",
+            "martina morelli": "Tavolo Three",
+            "soleil filangieri": "Tavolo Three",
+            "mariana rizzitelli": "Tavolo Three",
+            "ciro starita": "Tavolo Three",
+            "giusy trapani": "Tavolo Three",
+            "antonio migliaccio": "Tavolo Three",
+            "francesco cuomo": "Tavolo Three",
+            "alessandro lo vasto": "Tavolo Three",
+            "martina scafaro": "Tavolo Three",
+            "vincenza garofalo": "Tavolo Four",
+            "pasquale di napoli": "Tavolo Four",
+            "amalia di napoli": "Tavolo Four",
+            "raffaele de sieno": "Tavolo Four",
+            "antonio garofano": "Tavolo Four",
+            "maria paone": "Tavolo Four",
+            "rita falanga": "Tavolo Four",
+            "ciro ciampa": "Tavolo Four",
+            "olga ciampa": "Tavolo Four",
+            "egidio tranfaglia": "Tavolo Five",
+            "tania riccio": "Tavolo Five",
+            "barbara lamanna": "Tavolo Five",
+            "simone caruso": "Tavolo Five",
+            "gianluca cozzolino": "Tavolo Five",
+            "gaetano ascione": "Tavolo Five",
+            "georgiana lupascu": "Tavolo Five",
+            "antonio ciccarelli": "Tavolo Five",
+            "bruno gaetano": "Tavolo Five",
+            "anna cipollaro": "Tavolo Six",
+            "domenico guadagno": "Tavolo Six",
+            "anna esposito": "Tavolo Six",
+            "antonio costanzo": "Tavolo Six",
+            "mario panico": "Tavolo Six",
+            "adele esposito": "Tavolo Six",
+            "vincenzo panico": "Tavolo Six",
+            "raffaella langellotto": "Tavolo Six",
+            "adele panico": "Tavolo Six",
+            "sara papale": "Tavolo Seven",
+            "pasquale bucciaglia": "Tavolo Seven",
+            "paolo savino": "Tavolo Seven",
+            "marika finizio": "Tavolo Seven",
+            "martina di marzo": "Tavolo Seven",
+            "mario napolano": "Tavolo Seven",
+            "giusy ferraro": "Tavolo Seven",
+            "mauro bove": "Tavolo Seven",
+            "maurizio carotenuto": "Tavolo Seven",
+            "gennaro rotondo": "Tavolo Eight",
+            "antonella cia": "Tavolo Eight",
+            "bruno esposito": "Tavolo Eight",
+            "assunta luongo": "Tavolo Eight",
+            "raffaele riccardi": "Tavolo Eight",
+            "anna scarallo": "Tavolo Eight",
+            "salvatore fruscione": "Tavolo Eight",
+            "assunta romano": "Tavolo Eight",
+            "antonio di cicco": "Tavolo Nine",
+            "federica tesone": "Tavolo Nine",
+            "mariano caiazzo": "Tavolo Nine",
+            "gaetano di benedetto": "Tavolo Nine",
+            "silvia della bella": "Tavolo Nine",
+            "cinzia servillo": "Tavolo Nine",
+            "leonardo lattanzi": "Tavolo Nine",
+            "giuseppe felaco": "Tavolo Nine",
+            "federica coletta": "Tavolo Nine",
+            "patrizia garofano": "Tavolo Ten",
+            "giuseppe panico": "Tavolo Ten",
+            "vincenzo panico": "Tavolo Ten",
+            "mery iaccarino": "Tavolo Ten",
+            "maria panico": "Tavolo Ten",
+            "antonio bossa": "Tavolo Ten",
+            "gina napolitano": "Tavolo Ten",
+            "gennaro bossa": "Tavolo Ten",
+            "antonietta aprea": "Tavolo Ten",
+            "patrizio iaccarino": "Tavolo Ten",
+            "mario ciambelli": "Tavolo Eleven",
+            "angela novaca": "Tavolo Eleven",
+            "maria avella": "Tavolo Eleven",
+            "angelo giuliano": "Tavolo Eleven",
+            "claudio giuliano": "Tavolo Eleven",
+            "federica giuliano": "Tavolo Eleven",
+            "agostino conte": "Tavolo Eleven",
+            "flora apollo": "Tavolo Twelve",
+            "alessandro maio": "Tavolo Twelve",
+            "antonio panico": "Tavolo Twelve",
+            "raffaella scudellaro": "Tavolo Twelve",
+            "ettore palazzi": "Tavolo Twelve",
+            "marina di domenico": "Tavolo Twelve",
+            "diego panico": "Tavolo Twelve",
+            "mena ciambelli": "Tavolo Thirteen",
+            "sergio palmieri": "Tavolo Thirteen",
+            "salvatore palmieri": "Tavolo Thirteen",
+            "teresa napolano": "Tavolo Thirteen",
+            "mena palmieri": "Tavolo Thirteen",
+            "sara bruno": "Tavolo Thirteen",
+            "sergio palmieri junior": "Tavolo Thirteen",
+            "anna panico": "Tavolo Fourteen",
+            "raffaele esposito": "Tavolo Fourteen",
+            "susanna esposito": "Tavolo Fourteen",
+            "fabio mezzacapo": "Tavolo Fourteen",
+            "gioia mezzacapo": "Tavolo Fourteen",
+            "veronica arena": "Tavolo Fourteen",
+            "tommaso de magistris": "Tavolo Fourteen",
+            "titta ciambelli": "Tavolo Fifteen",
+            "emanuele avella": "Tavolo Fifteen",
+            "enza d'ambrosio": "Tavolo Fifteen",
+            "michele ciambelli": "Tavolo Fifteen",
+            "alessio ciambelli": "Tavolo Fifteen",
+            "massimo ciambelli": "Tavolo Fifteen",
+            "marianna esposito": "Tavolo Fifteen",
+            "tina ciambelli": "Tavolo Fifteen",
+            "rosario chianese": "Tavolo Fifteen",
+            "antonio silvestri": "Tavolo Nineteen",
+            "roberta borriello": "Tavolo Nineteen",
+            "jole marra": "Tavolo Nineteen",
+            "marco primitivo": "Tavolo Nineteen",
+            "alessia del prete": "Tavolo Nineteen",
+            "ciro tipaldi": "Tavolo Nineteen",
+            "federica attanasio": "Tavolo Nineteen",
+            "giuseppe accarino": "Tavolo Nineteen",
+            "gerardo borriello": "Tavolo Nineteen",
+            "amalia panico": "Tavolo Sposi",
+            "ciro avella": "Tavolo Sposi"
         };
 
 
@@ -2095,10 +2224,21 @@
 
             if (invitati[input]) {
 
+                const nomeFormattato = input.replace(/\b\w/g, c => c.toUpperCase());
+                const tavolo = invitati[input];
+
+                const compagni = Object.entries(invitati)
+                    .filter(([nome, t]) => t === tavolo && nome !== input)
+                    .map(([nome]) => nome.replace(/\b\w/g, c => c.toUpperCase()));
+
+                const compagniHTML = compagni.length
+                    ? `<br><br><span style="font-size:0.9em;opacity:0.75">Al tuo tavolo ci sono anche:<br>${compagni.join('<br>')}</span>`
+                    : '';
+
                 result.innerHTML = `
-          Benvenuto/a <strong>${input}</strong><br><br>
+          Benvenuto/a <strong>${nomeFormattato}</strong><br><br>
           Il tuo tavolo è:<br>
-          <strong>${invitati[input]}</strong>
+          <strong>${tavolo}</strong>${compagniHTML}
         `;
 
             } else {
@@ -2113,7 +2253,7 @@
         // PHOTO UPLOAD — invia foto al web app Apps Script su Google Drive
         // 1) Deploya lo script Apps Script come Web App (vedi istruzioni)
         // 2) Incolla qui sotto l'URL del Web App (formato https://script.google.com/macros/s/.../exec)
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcYylC1gwcbXpzGb9rL-y2gu5oLR4_9H3bVXquA45cLj5xuRk9SdGZawrrM0t8ze-U/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzRKLRBI8RCpVoCtQrnDsi9Yuhq9UanFlGQE0PCbqDzZwHb849WLtmgviroAcdecsjf/exec';
 
         const MAX_FILE_MB = 25;
 

@@ -934,7 +934,7 @@
         }
 
         .result {
-            margin-top: 28px;
+            margin-top: 32px;
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.15rem;
             color: #4b4040;
@@ -942,9 +942,106 @@
             line-height: 1.5;
         }
 
-        .result strong {
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-card {
+            background: linear-gradient(160deg, #fffdf8 0%, #fdf8ef 100%);
+            border: 1px solid rgba(200, 169, 107, 0.28);
+            border-top: 2px solid var(--gold);
+            border-radius: 4px;
+            padding: 32px 28px 28px;
+            animation: fadeSlideUp 0.45s ease forwards;
+            text-align: center;
+        }
+
+        .result-welcome {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #9a8878;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .result-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.45rem;
+            font-weight: 600;
             color: var(--ink);
-            font-weight: 500;
+            margin-bottom: 22px;
+            letter-spacing: 1px;
+        }
+
+        .result-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #b0a090;
+            margin-bottom: 6px;
+        }
+
+        .result-table-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--ink);
+            letter-spacing: 4px;
+            line-height: 1.2;
+        }
+
+        .result-divider {
+            width: 44px;
+            height: 1px;
+            background: rgba(200, 169, 107, 0.38);
+            margin: 22px auto 18px;
+        }
+
+        .result-tablemates-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #b0a090;
+            margin-bottom: 10px;
+        }
+
+        .result-tablemates {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: #6b5c50;
+            line-height: 1.85;
+        }
+
+        .disambigua-options {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .disambigua-btn {
+            background: rgba(255, 253, 248, 0.7);
+            border: 1px solid rgba(200, 169, 107, 0.28);
+            border-radius: 4px;
+            padding: 14px 18px;
+            cursor: pointer;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--ink);
+            transition: background 0.22s, border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+            text-align: center;
+        }
+
+        .disambigua-btn:hover {
+            background: rgba(200, 169, 107, 0.1);
+            border-color: rgba(200, 169, 107, 0.6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(200, 169, 107, 0.18);
         }
 
         /* PHOTOS (album condiviso) */
@@ -1938,7 +2035,7 @@
 
             <div class="search-box reveal">
 
-                <span class="section-eyebrow">— I tuoi posti —</span>
+                <span class="section-eyebrow">— Dove siederai —</span>
                 <h3>Trova il tuo tavolo</h3>
 
                 <input type="text" id="guestName" class="search-input" placeholder="Nome e cognome">
@@ -2102,7 +2199,10 @@
             "pasquale di napoli": "Tavolo Four",
             "amalia di napoli": "Tavolo Four",
             "raffaele de sieno": "Tavolo Four",
-            "antonio garofano": "Tavolo Four",
+            "antonio garofano": [
+                { tavolo: "Tavolo Four", disambigua: "adulto (Tavolo 4)" },
+                { tavolo: "Tavolo Baby", disambigua: "bambino (Tavolo Baby)" }
+            ],
             "maria paone": "Tavolo Four",
             "rita falanga": "Tavolo Four",
             "ciro ciampa": "Tavolo Four",
@@ -2122,7 +2222,11 @@
             "antonio costanzo": "Tavolo Six",
             "mario panico": "Tavolo Six",
             "adele esposito": "Tavolo Six",
-            "vincenzo panico": "Tavolo Six",
+            "vincenzo panico": [
+                { tavolo: "Tavolo Six", disambigua: "cugino della sposa (figlio di Mario)" },
+                { tavolo: "Tavolo Ten", disambigua: "fratello della sposa" },
+                { tavolo: "Tavolo Twelve", disambigua: "cugino della sposa (figlio di Antonio)" }
+            ],
             "raffaella langellotto": "Tavolo Six",
             "adele panico": "Tavolo Six",
             "sara papale": "Tavolo Seven",
@@ -2152,19 +2256,28 @@
             "giuseppe felaco": "Tavolo Nine",
             "federica coletta": "Tavolo Nine",
             "patrizia garofano": "Tavolo Ten",
-            "giuseppe panico": "Tavolo Ten",
-            "vincenzo panico": "Tavolo Ten",
+            "giuseppe panico": [
+                { tavolo: "Tavolo Ten", disambigua: "papà della sposa" },
+                { tavolo: "Tavolo Baby", disambigua: "nipote della sposa (bambino)" }
+            ],
+            "maria iaccarino": "Tavolo Ten",
             "mery iaccarino": "Tavolo Ten",
-            "maria panico": "Tavolo Ten",
+            "maria panico": [
+                { tavolo: "Tavolo Ten", disambigua: "sorella della sposa" },
+                { tavolo: "Tavolo Twelve", disambigua: "cugina della sposa" }
+            ],
             "antonio bossa": "Tavolo Ten",
             "gina napolitano": "Tavolo Ten",
-            "gennaro bossa": "Tavolo Ten",
+            "gennaro bossa": [
+                { tavolo: "Tavolo Ten", disambigua: "adulto (Tavolo 10)" },
+                { tavolo: "Tavolo Baby", disambigua: "bambino (Tavolo Baby)" }
+            ],
             "antonietta aprea": "Tavolo Ten",
             "patrizio iaccarino": "Tavolo Ten",
             "mario ciambelli": "Tavolo Eleven",
             "angela novaca": "Tavolo Eleven",
             "maria avella": "Tavolo Eleven",
-            "angelo giuliano": "Tavolo Eleven",
+            "angela giuliano": "Tavolo Eleven",
             "claudio giuliano": "Tavolo Eleven",
             "federica giuliano": "Tavolo Eleven",
             "agostino conte": "Tavolo Eleven",
@@ -2181,7 +2294,6 @@
             "teresa napolano": "Tavolo Thirteen",
             "mena palmieri": "Tavolo Thirteen",
             "sara bruno": "Tavolo Thirteen",
-            "sergio palmieri junior": "Tavolo Thirteen",
             "anna panico": "Tavolo Fourteen",
             "raffaele esposito": "Tavolo Fourteen",
             "susanna esposito": "Tavolo Fourteen",
@@ -2207,47 +2319,84 @@
             "federica attanasio": "Tavolo Nineteen",
             "giuseppe accarino": "Tavolo Nineteen",
             "gerardo borriello": "Tavolo Nineteen",
+            "giovanni mezzacapo": "Tavolo Baby",
+            "alessia de magistris": "Tavolo Baby",
+            "daniele palazzi": "Tavolo Baby",
+            "christian panico": "Tavolo Baby",
+            "samuel panico": "Tavolo Baby",
+            "samuel tipaldi": "Tavolo Baby",
             "amalia panico": "Tavolo Sposi",
             "ciro avella": "Tavolo Sposi"
         };
 
 
         function findTable() {
-
-            const input = document
-                .getElementById('guestName')
-                .value
-                .trim()
-                .toLowerCase();
-
+            const input = document.getElementById('guestName').value.trim().toLowerCase();
             const result = document.getElementById('result');
+            const entry = invitati[input];
 
-            if (invitati[input]) {
-
-                const nomeFormattato = input.replace(/\b\w/g, c => c.toUpperCase());
-                const tavolo = invitati[input];
-
-                const compagni = Object.entries(invitati)
-                    .filter(([nome, t]) => t === tavolo && nome !== input)
-                    .map(([nome]) => nome.replace(/\b\w/g, c => c.toUpperCase()));
-
-                const compagniHTML = compagni.length
-                    ? `<br><br><span style="font-size:0.9em;opacity:0.75">Al tuo tavolo ci sono anche:<br>${compagni.join('<br>')}</span>`
-                    : '';
-
-                result.innerHTML = `
-          Benvenuto/a <strong>${nomeFormattato}</strong><br><br>
-          Il tuo tavolo è:<br>
-          <strong>${tavolo}</strong>${compagniHTML}
-        `;
-
-            } else {
-
+            if (!entry) {
                 result.innerHTML = `
         I tavoli sono ancora in fase di organizzazione ✨<br><br>
         Stay tuned… dateci ancora un pochino di tempo 💌
         `;
+                return;
             }
+
+            const matches = Array.isArray(entry) ? entry : [{ tavolo: entry }];
+            const uniqueTavoli = [...new Set(matches.map(m => m.tavolo))];
+
+            if (uniqueTavoli.length === 1) {
+                mostraTavolo(input, uniqueTavoli[0]);
+            } else {
+                const nomeFormattato = input.replace(/\b\w/g, c => c.toUpperCase());
+                const opzioni = matches.map((m, i) =>
+                    `<button class="disambigua-btn" onclick="scegliPersona('${input.replace(/'/g, "\\'")}',${i})">${m.disambigua}</button>`
+                ).join('');
+                result.innerHTML = `
+          <div class="result-card">
+            <div class="result-welcome">Ci sono più persone con il nome</div>
+            <div class="result-name">${nomeFormattato}</div>
+            <div class="result-label">Seleziona chi sei</div>
+            <div class="disambigua-options">${opzioni}</div>
+          </div>
+        `;
+            }
+        }
+
+        function scegliPersona(input, index) {
+            const entry = invitati[input];
+            const matches = Array.isArray(entry) ? entry : [{ tavolo: entry }];
+            mostraTavolo(input, matches[index].tavolo);
+        }
+
+        function mostraTavolo(input, tavolo) {
+            const result = document.getElementById('result');
+            const nomeFormattato = input.replace(/\b\w/g, c => c.toUpperCase());
+
+            const compagni = Object.entries(invitati)
+                .filter(([nome, v]) => {
+                    if (nome === input) return false;
+                    const ms = Array.isArray(v) ? v : [{ tavolo: v }];
+                    return ms.some(m => m.tavolo === tavolo);
+                })
+                .map(([nome]) => nome.replace(/\b\w/g, c => c.toUpperCase()));
+
+            const compagniHTML = compagni.length
+                ? `<div class="result-divider"></div>
+                   <div class="result-tablemates-label">Al tuo tavolo</div>
+                   <div class="result-tablemates">${compagni.join('<br>')}</div>`
+                : '';
+
+            result.innerHTML = `
+          <div class="result-card">
+            <div class="result-welcome">Benvenuto/a</div>
+            <div class="result-name">${nomeFormattato}</div>
+            <div class="result-label">Il tuo tavolo è</div>
+            <div class="result-table-name">${tavolo}</div>
+            ${compagniHTML}
+          </div>
+        `;
         }
 
         // PHOTO UPLOAD — invia foto al web app Apps Script su Google Drive
